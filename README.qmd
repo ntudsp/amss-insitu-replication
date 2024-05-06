@@ -12,8 +12,191 @@ The GitHub repository contains the code to replicate the analysis, figures and t
 The data that support the findings of this study are openly available in NTU research\
 data repository DR-NTU (Data) at .
 
+The subheadings in this repository follows the headings in the paper (after the [Data Loading] section) for consistency.
+
 ## Initialisation
+
+```{r init, echo=FALSE, message=FALSE}
+
+#data wrangling
+require(tidyverse)
+
+#visualisation
+require(gt)
+require(gtsummary)
+require(gtools)
+
+#load script
+source("scripts/supportScripts.R")
+
+metadata<-data.frame(
+        category=c("categorical","categorical","categorical",
+                   "categorical","categorical","categorical",
+                   "interval","interval",
+                   "interval","interval","interval","interval","interval",
+                   "interval","interval"),
+        variable=c("dom_noise","dom_natural","dom_human",
+                   "overall","appropriate","loudness",
+                   "ISOPL","ISOEV",
+                   "PRSSFas","PRSSBA","PRSSCom","PRSSEC","PRSSES",
+                   "PosAff","NegAff")
+)
+
+```
 
 ## Data Loading
 
-## 
+First, download the RData file containing all the data tables required to replicate all the figures, tables and analyses in this paper from the Dataverse repository.
+
+Load the RData file `fullData.Rdata`.
+
+```{r dataloading, echo=FALSE, message=FALSE}
+
+load(file = "data/fullData.RData")
+```
+
+## Results
+
+## Methods
+
+### Design of in-situ evaluation experiment
+
+#### Effect of order and group size
+
+**Extended Data Table 8** Summary of exact two-sample Kolmogorov-Smirnov tests to examine effect of order (GND--ROOF or ROOF--GND) and group size (1 or $>1$) on each soundscape evaluation attribute (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across each condition (AMSS and AMB). All the $p$-values were adjusted for multiple comparisons within conditions with the Benjamini-Hochberg (BH) method.
+
+```{r ks_ordergrp, message=FALSE}
+
+ks.df <- amss_insitu_participant_data |>
+        dplyr::select(c(condition,partGrp,order,metadata$variable)) |>
+        pivot_longer(names_to = "variable",
+                     values_to = "score",
+                     cols = c(dom_noise:NegAff))
+
+ks.order.grpsize <- rbind(
+        #KS Test by order
+        ks.df |> 
+                dplyr::group_by(condition,variable) |>
+                dplyr::summarise(
+                        ks_test = list(ks.test(score[order == 18],
+                                               score[order == 81],
+                                               exact = NULL,
+                                               alternative = "two.sided")),
+                        ks.pvalue = ks_test[[1]]$p.value
+                ) |>
+                dplyr::ungroup() |>
+                dplyr::group_by(condition) |>
+                dplyr::mutate(ks.padj = p.adjust(ks.pvalue, method="BH"),
+                              confvar = "order"),
+        #KS Test by group size
+        ks.df |> 
+                dplyr::group_by(condition,variable) |>
+                dplyr::summarise(
+                        ks_test = list(ks.test(score[partGrp == "single"],
+                                               score[partGrp == "multi"],
+                                               exact = NULL,
+                                               alternative = "two.sided")),
+                        ks.pvalue = ks_test[[1]]$p.value
+                ) |>
+                dplyr::ungroup() |>
+                dplyr::group_by(condition) |>
+                dplyr::mutate(ks.padj = p.adjust(ks.pvalue, method="BH"),
+                              confvar = "group size")
+        ) |>
+        #add significance stars
+        dplyr::mutate(
+                        ks.padj=paste0(gtools::stars.pval(ks.padj),
+                               formatC(ks.padj,
+                                       format = "f",
+                                       digits = 2))
+        ) |>
+        dplyr::select(!ks_test) |>
+        pivot_wider(values_from = ks.padj,
+                    names_from = variable,
+                    id_cols = c(condition,confvar)) |>
+        #reorder columns
+        dplyr::select(
+                dom_noise, dom_human, dom_natural, 
+                PosAff, NegAff, 
+                overall, appropriate, loudness, 
+                ISOPL, ISOEV,
+                PRSSFas, PRSSBA, PRSSCom, PRSSEC, PRSSES, confvar) |>
+        dplyr::group_by(confvar) |>
+        gt::gt() |>
+        cols_label(
+                ISOEV ~ html("<i>ISOEV</i>"),
+                ISOPL ~ html("<i>ISOPL</i>"),
+                NegAff ~ html("<i>NA</i>"),
+                PosAff ~ html("<i>PA</i>"),
+                PRSSFas ~ html("<i>PRSS</i><sub>Fas</sub>"),
+                PRSSBA ~ html("<i>PRSS</i><sub>BA</sub>"),
+                PRSSCom ~ html("<i>PRSS</i><sub>Com</sub>"),
+                PRSSEC ~ html("<i>PRSS</i><sub>EC</sub>"),
+                PRSSES ~ html("<i>PRSS</i><sub>ES</sub>"),
+                appropriate ~ html("<i>APPR</i>"),
+                dom_natural ~ html("<i>DOM</i><sub>Nat</sub>"),
+                dom_human ~ html("<i>DOM</i><sub>Hum</sub>"),
+                dom_noise ~ html("<i>DOM</i><sub>Noi</sub>"),
+                loudness ~ html("<i>PLN</i>"),
+                overall ~ html("<i>OSQ</i>"),
+        ) 
+ks.order.grpsize
+
+```
+
+### Participants
+
+**Extended Data Table 10** Summary of participant demographics and non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across each condition (AMSS and AMB).
+
+```{r ed_table10}
+
+#custom function for ks-test between ambient and amss groups across {}
+ks_test <- function(data, variable, by, ...) {
+  data <- data[c(variable, by)] %>% dplyr::filter(complete.cases(.))
+  ks.test(data[[variable]] ~ factor(data[[by]])) %>%
+  broom::tidy()
+}
+
+amss_insitu_participant_data |>
+        dplyr::select(c(condition,gender,age,pss,wnss,wbi), 
+                              starts_with("annoy-")) |>
+        drop_na() |>
+        tbl_summary(
+                by = condition,
+                type = list(!c(gender) ~ 'continuous'),
+                statistic = list(all_continuous() ~ "{mean} ({sd})"),
+                digits = list(all_continuous() ~ c(2, 2)),
+                label = list(
+                        pss ~ "PSS-10",
+                        wnss ~ "INS",
+                        wbi ~ "WHO-5",
+                        `annoy-aircraft` ~ "BA@aircraft~",
+                        `annoy-mrt` ~ "BA@mrt~",
+                        `annoy-consite` ~ "BA@consite~",
+                        `annoy-reno` ~ "BA@reno~",
+                        `annoy-traffic` ~ "BA@traffic~",
+                        `annoy-animals` ~ "BA@animals~",
+                        `annoy-children` ~ "BA@children~",
+                        `annoy-people` ~ "BA@people~",
+                        `annoy-others` ~ "BA@others~"
+                        )
+        ) |>
+        add_p(
+                test = list(
+                        gender ~ "prop.test",
+                        c(age,pss,wnss,wbi,
+                          starts_with("annoy-")) ~ c("ks_test")
+                        ),
+                pvalue_fun = function(x) style_pvalue(x, digits = 2)
+                ) |>
+        add_overall() |>
+        as_gt() |>
+        text_transform(
+                locations = cells_body(),
+                fn = function(x) {
+                        str_replace_all(x,pattern = "@",
+                                        replacement = "<sub>") |>
+                                str_replace_all("~","</sub>") 
+                        }
+                )
+```
