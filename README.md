@@ -1,5 +1,6 @@
-# README
 Bhan, Lam
+
+# Replication Code for “AI-augmented urban soundscapes: In-situ assessment of soundscape quality and restorativeness”
 
 The GitHub repository contains the code to replicate the analysis,
 figures and tables for the paper titled: ““.
