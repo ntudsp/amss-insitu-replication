@@ -113,8 +113,8 @@ twoWLMERMANOVA <- function(metadata, dataframe) {
                         dplyr::mutate(
                                 test=ifelse(category=="categorical" || 
                                                     int.norm$p.value<0.05,
-                                            "2W-LME-RM-T3-RT-ANOVA",
-                                            "2W-LME-RM-T3-ANOVA"),
+                                            "2ME-RT-RMANOVA",
+                                            "2ME-RMANOVA"),
                                 eff.size=`lme.model.eff$Omega2_partial`,
                                 variable=variable) |>
                         dplyr::select(all_of(variable_list))
@@ -179,21 +179,19 @@ twoWLMERMANOVA <- function(metadata, dataframe) {
                         site.pairs <- site.pairs |>
                                 cbind(site.eff$effect.size) |>
                                 dplyr::mutate(
-                                        term = paste0(
-                                                contrast,
-                                                " | ",
-                                                condition
-                                                ),
+                                        term = paste0(contrast," | ",condition),
                                         test = "Simple Contrasts for Site",
                                         eff.size = `site.eff$effect.size`,
-                                        variable = variable,
-                                        p.value = ifelse(
-                                                "adj.p.value" %in% colnames(site.pairs),
-                                                adj.p.value,
-                                                p.value
-                                                )
-                                        ) |>
-                                dplyr::select(all_of(variable_list))
+                                        variable = variable)
+                        
+                        if (variable %in% c("PosAff","NegAff")) {
+                                site.pairs<-site.pairs |>
+                                        dplyr::mutate(p.value=adj.p.value) |>
+                                        dplyr::select(all_of(variable_list))
+                        } else {
+                                site.pairs <- site.pairs |> 
+                                        dplyr::select(all_of(variable_list))
+                        }        
                         
                         #print(rbind(cond.pairs,site.pairs))
                         

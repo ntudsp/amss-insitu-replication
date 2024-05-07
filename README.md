@@ -21,12 +21,12 @@ The following figures are produced by this replication code:
 
 The following tables are produced by this replication code:
 
-- Table 1 in [Site evaluation
-  questionnaire](#site-evaluation-questionnaire)
+- Table 1
 
 - Table 2
 
-- Extended Data Table 2
+- Extended Data Table 2 in [Site evaluation
+  questionnaire](#site-evaluation-questionnaire)
 
 - Extended Data Table 3
 
@@ -55,16 +55,7 @@ Load the RData file `fullData.Rdata`.
 
 ### Site evaluation questionnaire
 
-Table 1: Mean responses $\mu$ (standard deviation $\sigma$) of
-perceptual attributes in the site evaluation questionnaire investigated
-for the validation study, organized by *site* and *condition*. The
-scales for all attributes are normalised to the range $[-1,1]$.
-Percentage changes are computed between the AMB and AMSS for *site*, and
-between ROOF and GND for *condition* as scale changes on the $[-1,1]$
-range with respect to the former. For instance, a change from $-0.25$ in
-the AMB condition to $0.75$ in the AMSS condition would be reported as a
-$50$% change. Significant changes as determined by posthoc tests are
-indicated in bold.
+#### **Extended Data Table 2:** Summary of statistical tests for attributes in soundscape evaluation questionnaire (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across site (GND and ROOF), condition (AMSS and AMB), and their interaction (*site*:*condition*). Test abbreviations and symbols for significance levels and effect sizes are defined in the footnote.
 
 ``` r
 #compute statistical tests for all variables
@@ -74,74 +65,74 @@ stat.results<-twoWLMERMANOVA(metadata,amss_insitu_participant_data)
     Category is: categorical; Variable is: dom_noise
     Two-Way Mixed Effects Repeated Measures Formula: 
     rank(dom_noise) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Category is: categorical; Variable is: dom_natural
     Two-Way Mixed Effects Repeated Measures Formula: 
     rank(dom_natural) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0 (p<0.05) 
     Category is: categorical; Variable is: dom_human
     Two-Way Mixed Effects Repeated Measures Formula: 
     rank(dom_human) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Category is: interval; Variable is: PosAff
     Two-Way Mixed Effects Repeated Measures Formula: 
     PosAff ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.021 (p<0.05) 
     Category is: interval; Variable is: NegAff
     Two-Way Mixed Effects Repeated Measures Formula: 
     NegAff ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
-    NegAff is non-normal: p<0.05 (p=3.40443554136163e-14)Two-Way Mixed Effects Repeated Measures Formula: 
+    <environment: 0x0000015b85844680>
+    NegAff is non-normal: p<0.05 (p=3.40444416059014e-14)Two-Way Mixed Effects Repeated Measures Formula: 
     rank(NegAff) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Category is: categorical; Variable is: overall
     Two-Way Mixed Effects Repeated Measures Formula: 
     rank(overall) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.027 (p<0.05) 
     Category is: categorical; Variable is: appropriate
     Two-Way Mixed Effects Repeated Measures Formula: 
     rank(appropriate) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Category is: categorical; Variable is: loudness
     Two-Way Mixed Effects Repeated Measures Formula: 
     rank(loudness) ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.022 (p<0.05) 
     Category is: interval; Variable is: ISOPL
     Two-Way Mixed Effects Repeated Measures Formula: 
     ISOPL ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.008 (p<0.05) 
     Category is: interval; Variable is: ISOEV
     Two-Way Mixed Effects Repeated Measures Formula: 
     ISOEV ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Category is: interval; Variable is: PRSSFas
     Two-Way Mixed Effects Repeated Measures Formula: 
     PRSSFas ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.008 (p<0.05) 
     Category is: interval; Variable is: PRSSBA
     Two-Way Mixed Effects Repeated Measures Formula: 
     PRSSBA ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.019 (p<0.05) 
     Category is: interval; Variable is: PRSSCom
     Two-Way Mixed Effects Repeated Measures Formula: 
     PRSSCom ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Interaction Effect is significant: p=0.046 (p<0.05) 
     Category is: interval; Variable is: PRSSEC
     Two-Way Mixed Effects Repeated Measures Formula: 
     PRSSEC ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
     Category is: interval; Variable is: PRSSES
     Two-Way Mixed Effects Repeated Measures Formula: 
     PRSSES ~ (1 | pID) + site * condition
-    <environment: 0x13363c188>
+    <environment: 0x0000015b85844680>
 
 ``` r
 #plot statistical test reults in a table
@@ -176,20 +167,20 @@ stat.results |>
 
 <div>
 
-<div id="icoyethtnh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#icoyethtnh table {
+<div id="bdyyrtsvmw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bdyyrtsvmw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#icoyethtnh thead, #icoyethtnh tbody, #icoyethtnh tfoot, #icoyethtnh tr, #icoyethtnh td, #icoyethtnh th {
+&#10;#bdyyrtsvmw thead, #bdyyrtsvmw tbody, #bdyyrtsvmw tfoot, #bdyyrtsvmw tr, #bdyyrtsvmw td, #bdyyrtsvmw th {
   border-style: none;
 }
-&#10;#icoyethtnh p {
+&#10;#bdyyrtsvmw p {
   margin: 0;
   padding: 0;
 }
-&#10;#icoyethtnh .gt_table {
+&#10;#bdyyrtsvmw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -214,11 +205,11 @@ stat.results |>
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_caption {
+&#10;#bdyyrtsvmw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#icoyethtnh .gt_title {
+&#10;#bdyyrtsvmw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -229,7 +220,7 @@ stat.results |>
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#icoyethtnh .gt_subtitle {
+&#10;#bdyyrtsvmw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -240,7 +231,7 @@ stat.results |>
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#icoyethtnh .gt_heading {
+&#10;#bdyyrtsvmw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -251,12 +242,12 @@ stat.results |>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_bottom_border {
+&#10;#bdyyrtsvmw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_col_headings {
+&#10;#bdyyrtsvmw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -270,7 +261,7 @@ stat.results |>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_col_heading {
+&#10;#bdyyrtsvmw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -289,7 +280,7 @@ stat.results |>
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#icoyethtnh .gt_column_spanner_outer {
+&#10;#bdyyrtsvmw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -300,13 +291,13 @@ stat.results |>
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#icoyethtnh .gt_column_spanner_outer:first-child {
+&#10;#bdyyrtsvmw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#icoyethtnh .gt_column_spanner_outer:last-child {
+&#10;#bdyyrtsvmw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#icoyethtnh .gt_column_spanner {
+&#10;#bdyyrtsvmw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -317,10 +308,10 @@ stat.results |>
   display: inline-block;
   width: 100%;
 }
-&#10;#icoyethtnh .gt_spanner_row {
+&#10;#bdyyrtsvmw .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#icoyethtnh .gt_group_heading {
+&#10;#bdyyrtsvmw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -345,7 +336,7 @@ stat.results |>
   vertical-align: middle;
   text-align: left;
 }
-&#10;#icoyethtnh .gt_empty_group_heading {
+&#10;#bdyyrtsvmw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -359,13 +350,13 @@ stat.results |>
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#icoyethtnh .gt_from_md > :first-child {
+&#10;#bdyyrtsvmw .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#icoyethtnh .gt_from_md > :last-child {
+&#10;#bdyyrtsvmw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#icoyethtnh .gt_row {
+&#10;#bdyyrtsvmw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -383,7 +374,7 @@ stat.results |>
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#icoyethtnh .gt_stub {
+&#10;#bdyyrtsvmw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -395,7 +386,7 @@ stat.results |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#icoyethtnh .gt_stub_row_group {
+&#10;#bdyyrtsvmw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -408,13 +399,13 @@ stat.results |>
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#icoyethtnh .gt_row_group_first td {
+&#10;#bdyyrtsvmw .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#icoyethtnh .gt_row_group_first th {
+&#10;#bdyyrtsvmw .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#icoyethtnh .gt_summary_row {
+&#10;#bdyyrtsvmw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -423,14 +414,14 @@ stat.results |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#icoyethtnh .gt_first_summary_row {
+&#10;#bdyyrtsvmw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_first_summary_row.thick {
+&#10;#bdyyrtsvmw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#icoyethtnh .gt_last_summary_row {
+&#10;#bdyyrtsvmw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -439,7 +430,7 @@ stat.results |>
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_grand_summary_row {
+&#10;#bdyyrtsvmw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -448,7 +439,7 @@ stat.results |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#icoyethtnh .gt_first_grand_summary_row {
+&#10;#bdyyrtsvmw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -457,7 +448,7 @@ stat.results |>
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_last_grand_summary_row_top {
+&#10;#bdyyrtsvmw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -466,10 +457,10 @@ stat.results |>
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_striped {
+&#10;#bdyyrtsvmw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#icoyethtnh .gt_table_body {
+&#10;#bdyyrtsvmw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -477,7 +468,7 @@ stat.results |>
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_footnotes {
+&#10;#bdyyrtsvmw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -490,7 +481,7 @@ stat.results |>
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_footnote {
+&#10;#bdyyrtsvmw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -498,7 +489,7 @@ stat.results |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#icoyethtnh .gt_sourcenotes {
+&#10;#bdyyrtsvmw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -511,57 +502,57 @@ stat.results |>
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#icoyethtnh .gt_sourcenote {
+&#10;#bdyyrtsvmw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#icoyethtnh .gt_left {
+&#10;#bdyyrtsvmw .gt_left {
   text-align: left;
 }
-&#10;#icoyethtnh .gt_center {
+&#10;#bdyyrtsvmw .gt_center {
   text-align: center;
 }
-&#10;#icoyethtnh .gt_right {
+&#10;#bdyyrtsvmw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#icoyethtnh .gt_font_normal {
+&#10;#bdyyrtsvmw .gt_font_normal {
   font-weight: normal;
 }
-&#10;#icoyethtnh .gt_font_bold {
+&#10;#bdyyrtsvmw .gt_font_bold {
   font-weight: bold;
 }
-&#10;#icoyethtnh .gt_font_italic {
+&#10;#bdyyrtsvmw .gt_font_italic {
   font-style: italic;
 }
-&#10;#icoyethtnh .gt_super {
+&#10;#bdyyrtsvmw .gt_super {
   font-size: 65%;
 }
-&#10;#icoyethtnh .gt_footnote_marks {
+&#10;#bdyyrtsvmw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#icoyethtnh .gt_asterisk {
+&#10;#bdyyrtsvmw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#icoyethtnh .gt_indent_1 {
+&#10;#bdyyrtsvmw .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#icoyethtnh .gt_indent_2 {
+&#10;#bdyyrtsvmw .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#icoyethtnh .gt_indent_3 {
+&#10;#bdyyrtsvmw .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#icoyethtnh .gt_indent_4 {
+&#10;#bdyyrtsvmw .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#icoyethtnh .gt_indent_5 {
+&#10;#bdyyrtsvmw .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -569,122 +560,722 @@ stat.results |>
 | **Term**           | **Test**                       | *p*-**value** | **Effect Size** |
 |--------------------|--------------------------------|---------------|-----------------|
 | dom_noise          |                                |               |                 |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | \*\*\*0.0000  | (L)0.3182       |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | 0.1571        | (S)0.0145       |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | 0.5667        | 0.0000          |
+| site               | 2ME-RT-RMANOVA                 | \*\*\*0.0000  | (L)0.3182       |
+| condition          | 2ME-RT-RMANOVA                 | 0.1571        | (S)0.0145       |
+| site:condition     | 2ME-RT-RMANOVA                 | 0.5667        | 0.0000          |
 | dom_natural        |                                |               |                 |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | \*\*\*0.0004  | (L)0.1464       |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | \*\*0.0015    | (M)0.1175       |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | \*\*\*0.0003  | (L)0.1492       |
+| site               | 2ME-RT-RMANOVA                 | \*\*\*0.0004  | (L)0.1464       |
+| condition          | 2ME-RT-RMANOVA                 | \*\*0.0015    | (M)0.1175       |
+| site:condition     | 2ME-RT-RMANOVA                 | \*\*\*0.0003  | (L)0.1492       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.9513        | (S)0.0149       |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*\*\*0.0000  | -1.1574         |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*\*\*0.0000  | (L)1.1661       |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*\*0.0000  | -0.0061         |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.9783        | -0.0061         |
 | dom_human          |                                |               |                 |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | \*\*\*0.0000  | (L)0.5180       |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | 0.1039        | (S)0.0121       |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | 0.8785        | 0.0000          |
+| site               | 2ME-RT-RMANOVA                 | \*\*\*0.0000  | (L)0.5180       |
+| condition          | 2ME-RT-RMANOVA                 | 0.1039        | (S)0.0121       |
+| site:condition     | 2ME-RT-RMANOVA                 | 0.8785        | 0.0000          |
 | PosAff             |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.1731        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | 0.6753        | 0.0000          |
-| condition          | 2W-LME-RM-T3-ANOVA             | 0.1620        | (S)0.0139       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | \*0.0211      | (S)0.0403       |
+| site               | 2ME-RMANOVA                    | 0.6753        | 0.0000          |
+| condition          | 2ME-RMANOVA                    | 0.1620        | (S)0.0139       |
+| site:condition     | 2ME-RMANOVA                    | \*0.0211      | (S)0.0403       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.9835        | -0.0050         |
 | AMB - AMSS \| MP   | Simple Contrasts for Condition | 0.2242        | -0.2963         |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*0.0179      | -0.5839         |
 | GND - MP \| AMB    | Simple Contrasts for Site      | 0.8971        | (M)0.0669       |
-| GND - ROOF \| AMB  | Simple Contrasts for Site      | 0.8971        | (L)0.2912       |
-| MP - ROOF \| AMB   | Simple Contrasts for Site      | 0.8971        | (L)0.2243       |
-| GND - MP \| AMSS   | Simple Contrasts for Site      | 0.8971        | -0.2243         |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.8971        | -0.2876         |
-| MP - ROOF \| AMSS  | Simple Contrasts for Site      | 0.8971        | -0.0633         |
+| GND - ROOF \| AMB  | Simple Contrasts for Site      | 0.1369        | (L)0.2912       |
+| MP - ROOF \| AMB   | Simple Contrasts for Site      | 0.2999        | (L)0.2243       |
+| GND - MP \| AMSS   | Simple Contrasts for Site      | 0.2625        | -0.2243         |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.1133        | -0.2876         |
+| MP - ROOF \| AMSS  | Simple Contrasts for Site      | 0.8977        | -0.0633         |
 | NegAff             |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | \*\*\*0.0000  | NA              |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | 0.3525        | 0.0006          |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | \*0.0253      | (S)0.0550       |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | 0.1665        | (S)0.0114       |
+| site               | 2ME-RT-RMANOVA                 | 0.3525        | 0.0006          |
+| condition          | 2ME-RT-RMANOVA                 | \*0.0253      | (S)0.0550       |
+| site:condition     | 2ME-RT-RMANOVA                 | 0.1665        | (S)0.0114       |
 | overall            |                                |               |                 |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | \*\*0.0041    | (M)0.0965       |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | 0.2204        | 0.0073          |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | \*0.0271      | (S)0.0540       |
+| site               | 2ME-RT-RMANOVA                 | \*\*0.0041    | (M)0.0965       |
+| condition          | 2ME-RT-RMANOVA                 | 0.2204        | 0.0073          |
+| site:condition     | 2ME-RT-RMANOVA                 | \*0.0271      | (S)0.0540       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.7087        | (M)0.0910       |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*0.0221      | -0.5631         |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*\*\*0.0009  | (L)0.7525       |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*\*0.0009  | (M)0.0984       |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.6297        | (M)0.0984       |
 | appropriate        |                                |               |                 |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | \*\*0.0024    | (M)0.1074       |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | \*\*\*0.0007  | (M)0.1327       |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | 0.1591        | (S)0.0142       |
+| site               | 2ME-RT-RMANOVA                 | \*\*0.0024    | (M)0.1074       |
+| condition          | 2ME-RT-RMANOVA                 | \*\*\*0.0007  | (M)0.1327       |
+| site:condition     | 2ME-RT-RMANOVA                 | 0.1591        | (S)0.0142       |
 | loudness           |                                |               |                 |
-| site               | 2W-LME-RM-T3-RT-ANOVA          | \*\*\*0.0000  | (L)0.3561       |
-| condition          | 2W-LME-RM-T3-RT-ANOVA          | 0.5667        | 0.0000          |
-| site:condition     | 2W-LME-RM-T3-RT-ANOVA          | \*0.0221      | (S)0.0587       |
+| site               | 2ME-RT-RMANOVA                 | \*\*\*0.0000  | (L)0.3561       |
+| condition          | 2ME-RT-RMANOVA                 | 0.5667        | 0.0000          |
+| site:condition     | 2ME-RT-RMANOVA                 | \*0.0221      | (S)0.0587       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.4189        | -0.1971         |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | .0.0812       | (L)0.4274       |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*\*\*0.0000  | -1.1600         |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*\*0.0000  | -0.5355         |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*0.0057    | -0.5355         |
 | ISOPL              |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.1229        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | \*\*0.0011    | (M)0.1248       |
-| condition          | 2W-LME-RM-T3-ANOVA             | \*0.0432      | (S)0.0434       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | \*\*0.0082    | (M)0.0808       |
+| site               | 2ME-RMANOVA                    | \*\*0.0011    | (M)0.1248       |
+| condition          | 2ME-RMANOVA                    | \*0.0432      | (S)0.0434       |
+| site:condition     | 2ME-RMANOVA                    | \*\*0.0082    | (M)0.0808       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.8241        | (S)0.0541       |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*\*0.0014    | -0.7926         |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*\*\*0.0001  | (L)0.9473       |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*\*0.0001  | (M)0.1006       |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.6487        | (M)0.1006       |
 | ISOEV              |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.7790        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | 0.4576        | 0.0000          |
-| condition          | 2W-LME-RM-T3-ANOVA             | 0.5795        | 0.0000          |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | 0.9990        | 0.0000          |
+| site               | 2ME-RMANOVA                    | 0.4576        | 0.0000          |
+| condition          | 2ME-RMANOVA                    | 0.5795        | 0.0000          |
+| site:condition     | 2ME-RMANOVA                    | 0.9990        | 0.0000          |
 | PRSSFas            |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.8728        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | \*0.0203      | (M)0.0606       |
-| condition          | 2W-LME-RM-T3-ANOVA             | \*\*0.0034    | (M)0.1000       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | \*\*0.0083    | (M)0.0806       |
+| site               | 2ME-RMANOVA                    | \*0.0203      | (M)0.0606       |
+| condition          | 2ME-RMANOVA                    | \*\*0.0034    | (M)0.1000       |
+| site:condition     | 2ME-RMANOVA                    | \*\*0.0083    | (M)0.0806       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.4713        | -0.1755         |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*\*\*0.0001  | -0.9538         |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*\*0.0011    | (L)0.7314       |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*0.0011    | -0.0468         |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.8178        | -0.0468         |
 | PRSSBA             |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.7777        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | 0.3081        | 0.0006          |
-| condition          | 2W-LME-RM-T3-ANOVA             | \*\*0.0034    | (M)0.1005       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | \*0.0193      | (M)0.0618       |
+| site               | 2ME-RMANOVA                    | 0.3081        | 0.0006          |
+| condition          | 2ME-RMANOVA                    | \*\*0.0034    | (M)0.1005       |
+| site:condition     | 2ME-RMANOVA                    | \*0.0193      | (M)0.0618       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.4309        | -0.1920         |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*\*\*0.0003  | -0.9116         |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*0.0241      | (L)0.5165       |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*0.0241      | -0.2031         |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.3390        | -0.2031         |
 | PRSSCom            |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.3328        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | \*\*\*0.0009  | (M)0.1287       |
-| condition          | 2W-LME-RM-T3-ANOVA             | \*0.0135      | (M)0.0698       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | \*0.0456      | (S)0.0422       |
+| site               | 2ME-RMANOVA                    | \*\*\*0.0009  | (M)0.1287       |
+| condition          | 2ME-RMANOVA                    | \*0.0135      | (M)0.0698       |
+| site:condition     | 2ME-RMANOVA                    | \*0.0456      | (S)0.0422       |
 | AMB - AMSS \| GND  | Simple Contrasts for Condition | 0.3652        | -0.2209         |
 | AMB - AMSS \| ROOF | Simple Contrasts for Condition | \*\*0.0020    | -0.7697         |
 | GND - ROOF \| AMB  | Simple Contrasts for Site      | \*\*\*0.0005  | (L)0.7308       |
-| GND - ROOF \| AMSS | Simple Contrasts for Site      | \*\*\*0.0005  | (L)0.1819       |
+| GND - ROOF \| AMSS | Simple Contrasts for Site      | 0.3378        | (L)0.1819       |
 | PRSSEC             |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | 0.9051        | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | \*\*0.0015    | (M)0.1182       |
-| condition          | 2W-LME-RM-T3-ANOVA             | \*\*0.0023    | (M)0.1089       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | 0.2031        | 0.0090          |
+| site               | 2ME-RMANOVA                    | \*\*0.0015    | (M)0.1182       |
+| condition          | 2ME-RMANOVA                    | \*\*0.0023    | (M)0.1089       |
+| site:condition     | 2ME-RMANOVA                    | 0.2031        | 0.0090          |
 | PRSSES             |                                |               |                 |
 | Residuals          | Shapiro-Wilk normality test    | .0.0581       | NA              |
-| site               | 2W-LME-RM-T3-ANOVA             | \*\*0.0010    | (M)0.1254       |
-| condition          | 2W-LME-RM-T3-ANOVA             | \*0.0410      | (S)0.0446       |
-| site:condition     | 2W-LME-RM-T3-ANOVA             | 0.1504        | (S)0.0155       |
+| site               | 2ME-RMANOVA                    | \*\*0.0010    | (M)0.1254       |
+| condition          | 2ME-RMANOVA                    | \*0.0410      | (S)0.0446       |
+| site:condition     | 2ME-RMANOVA                    | 0.1504        | (S)0.0155       |
 
 </div>
 
 </div>
 
-Figure 2: Simple contrast of means across all perceptual attributes
-organized by *condition* and *site* Contrasts by *condition* are between
-groups at each *site*, whereas contrasts by *site* are within group for
-each *condition*. The scales for all attributes are normalised to the
-range \[-1,1\]. Significant differences as determined by posthoc
-contrast tests are accentuated
+#### **Table 1:** Mean responses $\mu$ (standard deviation $\sigma$) of perceptual attributes in the site evaluation questionnaire investigated for the validation study, organized by *site* and *condition*. The scales for all attributes are normalised to the range $[-1,1]$. Percentage changes are computed between the AMB and AMSS for *site*, and between ROOF and GND for *condition* as scale changes on the $[-1,1]$ range with respect to the former. For instance, a change from $-0.25$ in the AMB condition to $0.75$ in the AMSS condition would be reported as a $50$% change. Significant changes as determined by posthoc tests are indicated in bold.
+
+``` r
+#retrieve significant results
+signif_posthoc <- stat.results |>
+        dplyr::filter(
+                p.value<0.05 & 
+                        !grepl("MP",term) &
+                        grepl("Contrasts",test)
+                      ) 
+
+signif_posthoc_bycond <- signif_posthoc |>
+        filter(grepl("Condition",test)) |>
+        select(variable,term)
+
+signif_posthoc_bysite <- signif_posthoc |>
+        filter(grepl("Site",test)) |>
+        select(variable,term)
+
+#summarise by condition at each site
+summary_bycond_gt <- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |>
+        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
+        tbl_strata(
+            strata = site,
+            .tbl_fun =
+              ~ .x %>%
+                tbl_summary(
+                        by = condition, 
+                        missing = "no",
+                        type = everything() ~ "continuous",
+                        statistic = all_continuous() ~ "{mean} ({sd})",
+                        label = list(
+                                dom_noise ~ "!DOM#@Noi~",
+                                dom_human ~ "!DOM#@Hum~",
+                                dom_natural ~ "!DOM#@Nat~",
+                                overall ~ "!OSQ#",
+                                appropriate ~ "!APPR#",
+                                loudness ~ "!PLN#",
+                                ISOPL ~ "!ISOPL#",
+                                ISOEV ~ "!ISOEV#",
+                                PRSSFas ~ "!PRSS#@Fas~",
+                                PRSSBA ~ "!PRSS#@BA~",
+                                PRSSCom ~ "!PRSS#@Com~",
+                                PRSSEC ~ "!PRSS#@EC~",
+                                PRSSES ~ "!PRSS#@ES~",
+                                PosAff ~ "!PA#",
+                                NegAff ~ "!NA#"
+                                )
+                        ) %>%
+                add_difference(
+                        estimate_fun = everything() ~ 
+                                function(x) paste0(style_sigfig((-x/2) * 100), "%")
+                ),
+            .header = "**{strata}**"
+            ) |>
+        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
+        # remove difference footnote
+        modify_footnote(update = everything() ~ NA) |>
+        modify_header(all_stat_cols() ~ "**{level}**") 
+
+#summarise by site for each cond
+summary_bysite_gt <- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |>
+        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
+        dplyr::mutate(site=factor(site, levels=c("GND","ROOF"))) |>
+        tbl_strata(
+            strata = condition,
+            .tbl_fun =
+              ~ .x %>%
+                tbl_summary(
+                        by = site, 
+                        missing = "no",
+                        type = everything() ~ "continuous",
+                        statistic = all_continuous() ~ "{mean} ({sd})",
+                        label = list(
+                                dom_noise ~ "!DOM#@Noi~",
+                                dom_human ~ "!DOM#@Hum~",
+                                dom_natural ~ "!DOM#@Nat~",
+                                overall ~ "!OSQ#",
+                                appropriate ~ "!APPR#",
+                                loudness ~ "!PLN#",
+                                ISOPL ~ "!ISOPL#",
+                                ISOEV ~ "!ISOEV#",
+                                PRSSFas ~ "!PRSS#@Fas~",
+                                PRSSBA ~ "!PRSS#@BA~",
+                                PRSSCom ~ "!PRSS#@Com~",
+                                PRSSEC ~ "!PRSS#@EC~",
+                                PRSSES ~ "!PRSS#@ES~",
+                                PosAff ~ "!PA#",
+                                NegAff ~ "!NA#"
+                                )
+                        ) %>%
+                add_difference(
+                        estimate_fun = everything() ~ 
+                                function(x) paste0(style_sigfig((-x/2) * 100), "%")
+                        ),
+            .header = "**{strata}**"
+            ) |>
+        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
+        # remove difference footnote
+        modify_footnote(update = everything() ~ NA) |>
+        modify_header(all_stat_cols() ~ "**{level}**") 
+
+        
+tbl_merge_cond_site <-
+        tbl_merge(
+                tbls = list(summary_bycond_gt, summary_bysite_gt),
+                tab_spanner = c(
+                        "**Contrasts by condition at ...**",
+                        "**Contrasts by site under ...**"
+                        )
+                ) |>
+        as_gt() |>
+        text_transform(
+                locations = cells_body(),
+                fn = function(x) {
+                        str_replace_all(
+                                x,pattern = "@",
+                                replacement = "<sub>"
+                                ) |>
+                                str_replace_all("~","</sub>") |>
+                                str_replace_all("!","<i>") |>
+                                str_replace_all("#","</i>")
+                        }
+                ) |>
+        #highlight significant results at GND site
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_1_1),
+                        rows = variable %in% 
+                                signif_posthoc_bycond[
+                                        str_detect(signif_posthoc_bycond$term,
+                                                   "GND"),
+                                        ]$variable
+                        )
+        ) |>
+        #highlight significant results at ROOF site
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_2_1),
+                        rows = variable %in% 
+                                signif_posthoc_bycond[
+                                        str_detect(signif_posthoc_bycond$term,
+                                                   "ROOF"),
+                                        ]$variable
+                        )
+        ) |>
+        #highlight significant results under AMB condition
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_1_2),
+                        rows = variable %in% 
+                                signif_posthoc_bysite[
+                                        str_detect(signif_posthoc_bysite$term,
+                                                   "AMB"),
+                                        ]$variable
+                        )
+        ) |>
+        #highlight significant results under AMSS condition
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_2_2),
+                        rows = variable %in% 
+                                signif_posthoc_bysite[
+                                        str_detect(signif_posthoc_bysite$term,
+                                                   "AMSS"),
+                                        ]$variable
+                        )
+        )
+        
+tbl_merge_cond_site        
+```
+
+<div>
+
+<div id="ckdqtbdsee" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ckdqtbdsee table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&#10;#ckdqtbdsee thead, #ckdqtbdsee tbody, #ckdqtbdsee tfoot, #ckdqtbdsee tr, #ckdqtbdsee td, #ckdqtbdsee th {
+  border-style: none;
+}
+&#10;#ckdqtbdsee p {
+  margin: 0;
+  padding: 0;
+}
+&#10;#ckdqtbdsee .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+&#10;#ckdqtbdsee .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+&#10;#ckdqtbdsee .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+&#10;#ckdqtbdsee .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+&#10;#ckdqtbdsee .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+&#10;#ckdqtbdsee .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+&#10;#ckdqtbdsee .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+&#10;#ckdqtbdsee .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+&#10;#ckdqtbdsee .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+&#10;#ckdqtbdsee .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+&#10;#ckdqtbdsee .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+&#10;#ckdqtbdsee .gt_from_md > :first-child {
+  margin-top: 0;
+}
+&#10;#ckdqtbdsee .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+&#10;#ckdqtbdsee .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+&#10;#ckdqtbdsee .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#ckdqtbdsee .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+&#10;#ckdqtbdsee .gt_row_group_first td {
+  border-top-width: 2px;
+}
+&#10;#ckdqtbdsee .gt_row_group_first th {
+  border-top-width: 2px;
+}
+&#10;#ckdqtbdsee .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#ckdqtbdsee .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+&#10;#ckdqtbdsee .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#ckdqtbdsee .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+&#10;#ckdqtbdsee .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#ckdqtbdsee .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#ckdqtbdsee .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#ckdqtbdsee .gt_left {
+  text-align: left;
+}
+&#10;#ckdqtbdsee .gt_center {
+  text-align: center;
+}
+&#10;#ckdqtbdsee .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+&#10;#ckdqtbdsee .gt_font_normal {
+  font-weight: normal;
+}
+&#10;#ckdqtbdsee .gt_font_bold {
+  font-weight: bold;
+}
+&#10;#ckdqtbdsee .gt_font_italic {
+  font-style: italic;
+}
+&#10;#ckdqtbdsee .gt_super {
+  font-size: 65%;
+}
+&#10;#ckdqtbdsee .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+&#10;#ckdqtbdsee .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+&#10;#ckdqtbdsee .gt_indent_1 {
+  text-indent: 5px;
+}
+&#10;#ckdqtbdsee .gt_indent_2 {
+  text-indent: 10px;
+}
+&#10;#ckdqtbdsee .gt_indent_3 {
+  text-indent: 15px;
+}
+&#10;#ckdqtbdsee .gt_indent_4 {
+  text-indent: 20px;
+}
+&#10;#ckdqtbdsee .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+| **Characteristic**   | <span class="gt_column_spanner">**Contrasts by condition at …**</span> |              |                |              |              |                | <span class="gt_column_spanner">**Contrasts by site under …**</span> |              |                |              |              |                |
+|----------------------|------------------------------------------------------------------------|--------------|----------------|--------------|--------------|----------------|----------------------------------------------------------------------|--------------|----------------|--------------|--------------|----------------|
+|                      | **AMB**                                                                | **AMSS**     | **Difference** | **AMB**      | **AMSS**     | **Difference** | **GND**                                                              | **ROOF**     | **Difference** | **GND**      | **ROOF**     | **Difference** |
+| *DOM*<sub>Noi</sub>  | 0.25 (0.44)                                                            | 0.15 (0.50)  | -4.9%          | 0.66 (0.39)  | 0.51 (0.42)  | -7.1%          | 0.25 (0.44)                                                          | 0.66 (0.39)  | 20%            | 0.15 (0.50)  | 0.51 (0.42)  | 18%            |
+| *DOM*<sub>Hum</sub>  | -0.25 (0.38)                                                           | -0.24 (0.60) | 0.69%          | -0.86 (0.34) | -0.93 (0.34) | -3.6%          | -0.25 (0.38)                                                         | -0.86 (0.34) | -30%           | -0.24 (0.60) | -0.93 (0.34) | -35%           |
+| *DOM*<sub>Nat</sub>  | 0.19 (0.40)                                                            | 0.17 (0.49)  | -1.0%          | -0.36 (0.50) | 0.19 (0.44)  | 28%            | 0.19 (0.40)                                                          | -0.36 (0.50) | -27%           | 0.17 (0.49)  | 0.19 (0.44)  | 1.4%           |
+| *OSQ*                | 0.17 (0.47)                                                            | 0.14 (0.39)  | -1.6%          | -0.17 (0.50) | 0.07 (0.55)  | 12%            | 0.17 (0.47)                                                          | -0.17 (0.50) | -17%           | 0.14 (0.39)  | 0.07 (0.55)  | -3.5%          |
+| *APPR*               | -0.02 (0.39)                                                           | 0.15 (0.44)  | 8.4%           | -0.38 (0.49) | 0.01 (0.57)  | 19%            | -0.02 (0.39)                                                         | -0.38 (0.49) | -18%           | 0.15 (0.44)  | 0.01 (0.57)  | -6.9%          |
+| *PLN*                | -0.17 (0.35)                                                           | -0.11 (0.49) | 3.0%           | 0.34 (0.43)  | 0.15 (0.55)  | -9.5%          | -0.17 (0.35)                                                         | 0.34 (0.43)  | 26%            | -0.11 (0.49) | 0.15 (0.55)  | 13%            |
+| *ISOPL*              | 0.16 (0.32)                                                            | 0.14 (0.30)  | -1.0%          | -0.19 (0.38) | 0.10 (0.45)  | 15%            | 0.16 (0.32)                                                          | -0.19 (0.38) | -17%           | 0.14 (0.30)  | 0.10 (0.45)  | -1.9%          |
+| *ISOEV*              | 0.03 (0.23)                                                            | 0.05 (0.23)  | 1.2%           | 0.06 (0.24)  | 0.08 (0.26)  | 1.2%           | 0.03 (0.23)                                                          | 0.06 (0.24)  | 1.5%           | 0.05 (0.23)  | 0.08 (0.26)  | 1.5%           |
+| *PRSS*<sub>Fas</sub> | -0.16 (0.44)                                                           | -0.08 (0.39) | 3.9%           | -0.49 (0.43) | -0.06 (0.50) | 21%            | -0.16 (0.44)                                                         | -0.49 (0.43) | -16%           | -0.08 (0.39) | -0.06 (0.50) | 1.0%           |
+| *PRSS*<sub>BA</sub>  | 0.08 (0.59)                                                            | 0.19 (0.48)  | 5.5%           | -0.22 (0.50) | 0.30 (0.68)  | 26%            | 0.08 (0.59)                                                          | -0.22 (0.50) | -15%           | 0.19 (0.48)  | 0.30 (0.68)  | 5.8%           |
+| *PRSS*<sub>Com</sub> | -0.40 (0.35)                                                           | -0.32 (0.30) | 3.9%           | -0.66 (0.35) | -0.38 (0.41) | 14%            | -0.40 (0.35)                                                         | -0.66 (0.35) | -13%           | -0.32 (0.30) | -0.38 (0.41) | -3.2%          |
+| *PRSS*<sub>EC</sub>  | -0.40 (0.33)                                                           | -0.25 (0.29) | 7.1%           | -0.61 (0.34) | -0.35 (0.39) | 13%            | -0.40 (0.33)                                                         | -0.61 (0.34) | -11%           | -0.25 (0.29) | -0.35 (0.39) | -4.6%          |
+| *PRSS*<sub>ES</sub>  | -0.34 (0.33)                                                           | -0.28 (0.32) | 3.0%           | -0.55 (0.29) | -0.36 (0.31) | 9.5%           | -0.34 (0.33)                                                         | -0.55 (0.29) | -11%           | -0.28 (0.32) | -0.36 (0.31) | -4.2%          |
+| *PA*                 | -0.07 (0.43)                                                           | -0.07 (0.50) | 0.12%          | -0.21 (0.38) | 0.07 (0.59)  | 14%            | -0.07 (0.43)                                                         | -0.21 (0.38) | -7.0%          | -0.07 (0.50) | 0.07 (0.59)  | 6.9%           |
+| *NA*                 | -0.88 (0.18)                                                           | -0.88 (0.23) | 0.17%          | -0.78 (0.30) | -0.83 (0.43) | -2.2%          | -0.88 (0.18)                                                         | -0.78 (0.30) | 4.8%           | -0.88 (0.23) | -0.83 (0.43) | 2.5%           |
+
+</div>
+
+</div>
+
+#### Figure 2: Simple contrast of means across all perceptual attributes organized by *condition* and *site* Contrasts by *condition* are between groups at each *site*, whereas contrasts by *site* are within group for each *condition*. The scales for all attributes are normalised to the range \[-1,1\]. Significant differences as determined by posthoc contrast tests are accentuated
 
 ``` r
 #prepare dataframe for plotting
@@ -840,13 +1431,7 @@ ggsave(
 
 #### Effect of order and group size
 
-**Extended Data Table 8** Summary of exact two-sample Kolmogorov-Smirnov
-tests to examine effect of order (GND–ROOF or ROOF–GND) and group size
-(1 or $>1$) on each soundscape evaluation attribute (sound source
-dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*,
-and PRSS dimensions) across each condition (AMSS and AMB). All the
-$p$-values were adjusted for multiple comparisons within conditions with
-the Benjamini-Hochberg (BH) method.
+##### **Extended Data Table 8** Summary of exact two-sample Kolmogorov-Smirnov tests to examine effect of order (GND–ROOF or ROOF–GND) and group size (1 or $>1$) on each soundscape evaluation attribute (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across each condition (AMSS and AMB). All the $p$-values were adjusted for multiple comparisons within conditions with the Benjamini-Hochberg (BH) method.
 
 ``` r
 ks.df <- amss_insitu_participant_data |>
@@ -927,20 +1512,20 @@ ks.order.grpsize
 
 <div>
 
-<div id="xaykomjymj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xaykomjymj table {
+<div id="fayrnntwgt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fayrnntwgt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#xaykomjymj thead, #xaykomjymj tbody, #xaykomjymj tfoot, #xaykomjymj tr, #xaykomjymj td, #xaykomjymj th {
+&#10;#fayrnntwgt thead, #fayrnntwgt tbody, #fayrnntwgt tfoot, #fayrnntwgt tr, #fayrnntwgt td, #fayrnntwgt th {
   border-style: none;
 }
-&#10;#xaykomjymj p {
+&#10;#fayrnntwgt p {
   margin: 0;
   padding: 0;
 }
-&#10;#xaykomjymj .gt_table {
+&#10;#fayrnntwgt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -965,11 +1550,11 @@ ks.order.grpsize
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_caption {
+&#10;#fayrnntwgt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#xaykomjymj .gt_title {
+&#10;#fayrnntwgt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -980,7 +1565,7 @@ ks.order.grpsize
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#xaykomjymj .gt_subtitle {
+&#10;#fayrnntwgt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -991,7 +1576,7 @@ ks.order.grpsize
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#xaykomjymj .gt_heading {
+&#10;#fayrnntwgt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1002,12 +1587,12 @@ ks.order.grpsize
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_bottom_border {
+&#10;#fayrnntwgt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_col_headings {
+&#10;#fayrnntwgt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1021,7 +1606,7 @@ ks.order.grpsize
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_col_heading {
+&#10;#fayrnntwgt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1040,7 +1625,7 @@ ks.order.grpsize
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#xaykomjymj .gt_column_spanner_outer {
+&#10;#fayrnntwgt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1051,13 +1636,13 @@ ks.order.grpsize
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#xaykomjymj .gt_column_spanner_outer:first-child {
+&#10;#fayrnntwgt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#xaykomjymj .gt_column_spanner_outer:last-child {
+&#10;#fayrnntwgt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#xaykomjymj .gt_column_spanner {
+&#10;#fayrnntwgt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1068,10 +1653,10 @@ ks.order.grpsize
   display: inline-block;
   width: 100%;
 }
-&#10;#xaykomjymj .gt_spanner_row {
+&#10;#fayrnntwgt .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#xaykomjymj .gt_group_heading {
+&#10;#fayrnntwgt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1096,7 +1681,7 @@ ks.order.grpsize
   vertical-align: middle;
   text-align: left;
 }
-&#10;#xaykomjymj .gt_empty_group_heading {
+&#10;#fayrnntwgt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1110,13 +1695,13 @@ ks.order.grpsize
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#xaykomjymj .gt_from_md > :first-child {
+&#10;#fayrnntwgt .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#xaykomjymj .gt_from_md > :last-child {
+&#10;#fayrnntwgt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#xaykomjymj .gt_row {
+&#10;#fayrnntwgt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1134,7 +1719,7 @@ ks.order.grpsize
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#xaykomjymj .gt_stub {
+&#10;#fayrnntwgt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1146,7 +1731,7 @@ ks.order.grpsize
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xaykomjymj .gt_stub_row_group {
+&#10;#fayrnntwgt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1159,13 +1744,13 @@ ks.order.grpsize
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#xaykomjymj .gt_row_group_first td {
+&#10;#fayrnntwgt .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#xaykomjymj .gt_row_group_first th {
+&#10;#fayrnntwgt .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#xaykomjymj .gt_summary_row {
+&#10;#fayrnntwgt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1174,14 +1759,14 @@ ks.order.grpsize
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xaykomjymj .gt_first_summary_row {
+&#10;#fayrnntwgt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_first_summary_row.thick {
+&#10;#fayrnntwgt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#xaykomjymj .gt_last_summary_row {
+&#10;#fayrnntwgt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1190,7 +1775,7 @@ ks.order.grpsize
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_grand_summary_row {
+&#10;#fayrnntwgt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1199,7 +1784,7 @@ ks.order.grpsize
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xaykomjymj .gt_first_grand_summary_row {
+&#10;#fayrnntwgt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1208,7 +1793,7 @@ ks.order.grpsize
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_last_grand_summary_row_top {
+&#10;#fayrnntwgt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1217,10 +1802,10 @@ ks.order.grpsize
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_striped {
+&#10;#fayrnntwgt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#xaykomjymj .gt_table_body {
+&#10;#fayrnntwgt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1228,7 +1813,7 @@ ks.order.grpsize
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_footnotes {
+&#10;#fayrnntwgt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1241,7 +1826,7 @@ ks.order.grpsize
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_footnote {
+&#10;#fayrnntwgt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1249,7 +1834,7 @@ ks.order.grpsize
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xaykomjymj .gt_sourcenotes {
+&#10;#fayrnntwgt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1262,57 +1847,57 @@ ks.order.grpsize
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#xaykomjymj .gt_sourcenote {
+&#10;#fayrnntwgt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xaykomjymj .gt_left {
+&#10;#fayrnntwgt .gt_left {
   text-align: left;
 }
-&#10;#xaykomjymj .gt_center {
+&#10;#fayrnntwgt .gt_center {
   text-align: center;
 }
-&#10;#xaykomjymj .gt_right {
+&#10;#fayrnntwgt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#xaykomjymj .gt_font_normal {
+&#10;#fayrnntwgt .gt_font_normal {
   font-weight: normal;
 }
-&#10;#xaykomjymj .gt_font_bold {
+&#10;#fayrnntwgt .gt_font_bold {
   font-weight: bold;
 }
-&#10;#xaykomjymj .gt_font_italic {
+&#10;#fayrnntwgt .gt_font_italic {
   font-style: italic;
 }
-&#10;#xaykomjymj .gt_super {
+&#10;#fayrnntwgt .gt_super {
   font-size: 65%;
 }
-&#10;#xaykomjymj .gt_footnote_marks {
+&#10;#fayrnntwgt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#xaykomjymj .gt_asterisk {
+&#10;#fayrnntwgt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#xaykomjymj .gt_indent_1 {
+&#10;#fayrnntwgt .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#xaykomjymj .gt_indent_2 {
+&#10;#fayrnntwgt .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#xaykomjymj .gt_indent_3 {
+&#10;#fayrnntwgt .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#xaykomjymj .gt_indent_4 {
+&#10;#fayrnntwgt .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#xaykomjymj .gt_indent_5 {
+&#10;#fayrnntwgt .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1332,9 +1917,7 @@ ks.order.grpsize
 
 ### Participants
 
-**Extended Data Table 10** Summary of participant demographics and
-non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across
-each condition (AMSS and AMB).
+#### **Extended Data Table 10** Summary of participant demographics and non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across each condition (AMSS and AMB).
 
 ``` r
 #custom function for ks-test between ambient and amss groups across {}
@@ -1390,20 +1973,20 @@ amss_insitu_participant_data |>
 
 <div>
 
-<div id="ldhdrhwzxv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ldhdrhwzxv table {
+<div id="ihhvyddajq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ihhvyddajq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#ldhdrhwzxv thead, #ldhdrhwzxv tbody, #ldhdrhwzxv tfoot, #ldhdrhwzxv tr, #ldhdrhwzxv td, #ldhdrhwzxv th {
+&#10;#ihhvyddajq thead, #ihhvyddajq tbody, #ihhvyddajq tfoot, #ihhvyddajq tr, #ihhvyddajq td, #ihhvyddajq th {
   border-style: none;
 }
-&#10;#ldhdrhwzxv p {
+&#10;#ihhvyddajq p {
   margin: 0;
   padding: 0;
 }
-&#10;#ldhdrhwzxv .gt_table {
+&#10;#ihhvyddajq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1428,11 +2011,11 @@ amss_insitu_participant_data |>
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_caption {
+&#10;#ihhvyddajq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#ldhdrhwzxv .gt_title {
+&#10;#ihhvyddajq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1443,7 +2026,7 @@ amss_insitu_participant_data |>
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#ldhdrhwzxv .gt_subtitle {
+&#10;#ihhvyddajq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1454,7 +2037,7 @@ amss_insitu_participant_data |>
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#ldhdrhwzxv .gt_heading {
+&#10;#ihhvyddajq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1465,12 +2048,12 @@ amss_insitu_participant_data |>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_bottom_border {
+&#10;#ihhvyddajq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_col_headings {
+&#10;#ihhvyddajq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1484,7 +2067,7 @@ amss_insitu_participant_data |>
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_col_heading {
+&#10;#ihhvyddajq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1503,7 +2086,7 @@ amss_insitu_participant_data |>
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#ldhdrhwzxv .gt_column_spanner_outer {
+&#10;#ihhvyddajq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1514,13 +2097,13 @@ amss_insitu_participant_data |>
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#ldhdrhwzxv .gt_column_spanner_outer:first-child {
+&#10;#ihhvyddajq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#ldhdrhwzxv .gt_column_spanner_outer:last-child {
+&#10;#ihhvyddajq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#ldhdrhwzxv .gt_column_spanner {
+&#10;#ihhvyddajq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1531,10 +2114,10 @@ amss_insitu_participant_data |>
   display: inline-block;
   width: 100%;
 }
-&#10;#ldhdrhwzxv .gt_spanner_row {
+&#10;#ihhvyddajq .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#ldhdrhwzxv .gt_group_heading {
+&#10;#ihhvyddajq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1559,7 +2142,7 @@ amss_insitu_participant_data |>
   vertical-align: middle;
   text-align: left;
 }
-&#10;#ldhdrhwzxv .gt_empty_group_heading {
+&#10;#ihhvyddajq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1573,13 +2156,13 @@ amss_insitu_participant_data |>
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#ldhdrhwzxv .gt_from_md > :first-child {
+&#10;#ihhvyddajq .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#ldhdrhwzxv .gt_from_md > :last-child {
+&#10;#ihhvyddajq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#ldhdrhwzxv .gt_row {
+&#10;#ihhvyddajq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1597,7 +2180,7 @@ amss_insitu_participant_data |>
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#ldhdrhwzxv .gt_stub {
+&#10;#ihhvyddajq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1609,7 +2192,7 @@ amss_insitu_participant_data |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#ldhdrhwzxv .gt_stub_row_group {
+&#10;#ihhvyddajq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1622,13 +2205,13 @@ amss_insitu_participant_data |>
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#ldhdrhwzxv .gt_row_group_first td {
+&#10;#ihhvyddajq .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#ldhdrhwzxv .gt_row_group_first th {
+&#10;#ihhvyddajq .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#ldhdrhwzxv .gt_summary_row {
+&#10;#ihhvyddajq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1637,14 +2220,14 @@ amss_insitu_participant_data |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#ldhdrhwzxv .gt_first_summary_row {
+&#10;#ihhvyddajq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_first_summary_row.thick {
+&#10;#ihhvyddajq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#ldhdrhwzxv .gt_last_summary_row {
+&#10;#ihhvyddajq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1653,7 +2236,7 @@ amss_insitu_participant_data |>
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_grand_summary_row {
+&#10;#ihhvyddajq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1662,7 +2245,7 @@ amss_insitu_participant_data |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#ldhdrhwzxv .gt_first_grand_summary_row {
+&#10;#ihhvyddajq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1671,7 +2254,7 @@ amss_insitu_participant_data |>
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_last_grand_summary_row_top {
+&#10;#ihhvyddajq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1680,10 +2263,10 @@ amss_insitu_participant_data |>
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_striped {
+&#10;#ihhvyddajq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#ldhdrhwzxv .gt_table_body {
+&#10;#ihhvyddajq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1691,7 +2274,7 @@ amss_insitu_participant_data |>
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_footnotes {
+&#10;#ihhvyddajq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1704,7 +2287,7 @@ amss_insitu_participant_data |>
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_footnote {
+&#10;#ihhvyddajq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1712,7 +2295,7 @@ amss_insitu_participant_data |>
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#ldhdrhwzxv .gt_sourcenotes {
+&#10;#ihhvyddajq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1725,57 +2308,57 @@ amss_insitu_participant_data |>
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#ldhdrhwzxv .gt_sourcenote {
+&#10;#ihhvyddajq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#ldhdrhwzxv .gt_left {
+&#10;#ihhvyddajq .gt_left {
   text-align: left;
 }
-&#10;#ldhdrhwzxv .gt_center {
+&#10;#ihhvyddajq .gt_center {
   text-align: center;
 }
-&#10;#ldhdrhwzxv .gt_right {
+&#10;#ihhvyddajq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#ldhdrhwzxv .gt_font_normal {
+&#10;#ihhvyddajq .gt_font_normal {
   font-weight: normal;
 }
-&#10;#ldhdrhwzxv .gt_font_bold {
+&#10;#ihhvyddajq .gt_font_bold {
   font-weight: bold;
 }
-&#10;#ldhdrhwzxv .gt_font_italic {
+&#10;#ihhvyddajq .gt_font_italic {
   font-style: italic;
 }
-&#10;#ldhdrhwzxv .gt_super {
+&#10;#ihhvyddajq .gt_super {
   font-size: 65%;
 }
-&#10;#ldhdrhwzxv .gt_footnote_marks {
+&#10;#ihhvyddajq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#ldhdrhwzxv .gt_asterisk {
+&#10;#ihhvyddajq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#ldhdrhwzxv .gt_indent_1 {
+&#10;#ihhvyddajq .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#ldhdrhwzxv .gt_indent_2 {
+&#10;#ihhvyddajq .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#ldhdrhwzxv .gt_indent_3 {
+&#10;#ihhvyddajq .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#ldhdrhwzxv .gt_indent_4 {
+&#10;#ihhvyddajq .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#ldhdrhwzxv .gt_indent_5 {
+&#10;#ihhvyddajq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

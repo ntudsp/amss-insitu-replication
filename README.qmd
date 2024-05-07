@@ -95,119 +95,7 @@ load(file = "data/fullData.RData")
 
 ### Site evaluation questionnaire
 
-Table 1: Mean responses $\mu$ (standard deviation $\sigma$) of perceptual attributes in the site evaluation questionnaire investigated for the validation study, organized by *site* and *condition*. The scales for all attributes are normalised to the range $[-1,1]$. Percentage changes are computed between the AMB and AMSS for *site*, and between ROOF and GND for *condition* as scale changes on the $[-1,1]$ range with respect to the former. For instance, a change from $-0.25$ in the AMB condition to $0.75$ in the AMSS condition would be reported as a $50$% change. Significant changes as determined by posthoc tests are indicated in bold.
-
-```{r meanval, message=FALSE}
-
-#retrieve significant results
-signif_posthoc <- stat.results |>
-        dplyr::filter(
-                p.value<0.05 & 
-                        !grepl("MP",term) &
-                        grepl("Contrasts",test)
-                      ) 
-
-signif_posthoc_bycond <- significant_posthoc |>
-        filter(grepl("Condition",test)) |>
-        select(variable)
-
-signif_posthoc_bysite <- significant_posthoc |>
-        filter(grepl("Site",test)) |>
-        select(variable)
-
-summary_bycond_gt <- amss_insitu_participant_data |>
-        dplyr::filter(!site=="MP") |>
-        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
-        tbl_strata(
-            strata = site,
-            .tbl_fun =
-              ~ .x %>%
-                tbl_summary(
-                        by = condition, 
-                        missing = "no",
-                        type = everything() ~ "continuous",
-                        statistic = all_continuous() ~ "{mean} ({sd})"
-                        ) %>%
-                add_difference(),
-            .header = "**{strata}**"
-            ) |>
-        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
-        # remove difference footnote
-        modify_footnote(update = everything() ~ NA)
-
-summary_bysite_gt <- amss_insitu_participant_data |>
-        dplyr::filter(!site=="MP") |>
-        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
-        tbl_strata(
-            strata = condition,
-            .tbl_fun =
-              ~ .x %>%
-                tbl_summary(
-                        by = site, 
-                        missing = "no",
-                        type = everything() ~ "continuous",
-                        statistic = all_continuous() ~ "{mean} ({sd})"
-                        ) %>%
-                add_difference(),
-            .header = "**{strata}**"
-            )
-        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
-        # remove difference footnote
-        modify_footnote(update = everything() ~ NA)
-
-#contrast by condition at each site
-summary_bycond_df <- 
-        plot_df |>
-        group_by(site,condition,Attribute) |>
-        summarise(
-                mean=mean(score,na.rm=TRUE),
-                sd=sd(score,na.rm=TRUE)
-                ) |>
-        ungroup() |>
-        dplyr::mutate(
-                significant=ifelse(
-                        site=="ROOF" & Attribute %in% signif_posthoc_bycond,
-                        TRUE,
-                        FALSE)
-                ) |>
-        pivot_wider(
-                names_from = "condition",
-                values_from = c(mean,sd)
-        ) |>
-        dplyr::mutate(
-                AMSS = paste0(
-                        formatC(mean_AMSS,format = "f",digits = 2),
-                        " (",
-                        formatC(sd_AMSS,format = "f",digits = 2),
-                        ")"
-                ),
-                AMB = paste0(
-                        formatC(mean_AMB,format = "f",digits = 2),
-                        " (",
-                        formatC(sd_AMB,format = "f",digits = 2),
-                        ")"
-                ), 
-                difference = formatC(
-                        (mean_AMSS-mean_AMB)/2*100,
-                        format = "f",digits = 2
-                        ),
-                .keep = "unused"
-        ) |>
-        dplyr::select(!c("significant")) |>
-        pivot_wider(
-                names_from = "site",
-                values_from = c("AMB","AMSS","difference"),
-                names_glue = "{site}_{.value}"
-        ) |>
-        dplyr::select(c("Attribute",
-                        "GND_AMB","GND_AMSS","GND_difference",
-                        "ROOF_AMB","ROOF_AMSS","ROOF_difference")) |>
-        gt(rowname_col = "Attribute") |>
-        tab_spanner_delim(delim = "_")
-summary_bycond_df
-```
-
-Extended Data Table 2:Summary of statistical tests for attributes in soundscape evaluation questionnaire (sound source dominance, overall quality, appropriateness, loudness, revisit frequency, *ISOPL*, *ISOEV*, and PRSS dimensions) across site (GND and ROOF), condition (AMSS and AMB), and their interaction (*site*:*condition*). Test abbreviations and symbols for significance levels and effect sizes are defined in the footnote.
+#### **Extended Data Table 2:** Summary of statistical tests for attributes in soundscape evaluation questionnaire (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across site (GND and ROOF), condition (AMSS and AMB), and their interaction (*site*:*condition*). Test abbreviations and symbols for significance levels and effect sizes are defined in the footnote.
 
 ```{r mixedeffects, message=FALSE}
 
@@ -242,10 +130,201 @@ stat.results |>
                 p.value ~ html("<i>p</i>-<b>value</b>"),
                 eff.size ~ html("<b>Effect Size</b>")
         )
+```
+
+#### **Table 1:** Mean responses $\mu$ (standard deviation $\sigma$) of perceptual attributes in the site evaluation questionnaire investigated for the validation study, organized by *site* and *condition*. The scales for all attributes are normalised to the range $[-1,1]$. Percentage changes are computed between the AMB and AMSS for *site*, and between ROOF and GND for *condition* as scale changes on the $[-1,1]$ range with respect to the former. For instance, a change from $-0.25$ in the AMB condition to $0.75$ in the AMSS condition would be reported as a $50$% change. Significant changes as determined by posthoc tests are indicated in bold.
+
+```{r meanval, message=FALSE}
+
+#retrieve significant results
+signif_posthoc <- stat.results |>
+        dplyr::filter(
+                p.value<0.05 & 
+                        !grepl("MP",term) &
+                        grepl("Contrasts",test)
+                      ) 
+
+signif_posthoc_bycond <- signif_posthoc |>
+        filter(grepl("Condition",test)) |>
+        select(variable,term)
+
+signif_posthoc_bysite <- signif_posthoc |>
+        filter(grepl("Site",test)) |>
+        select(variable,term)
+
+#summarise by condition at each site
+summary_bycond_gt <- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |>
+        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
+        tbl_strata(
+            strata = site,
+            .tbl_fun =
+              ~ .x %>%
+                tbl_summary(
+                        by = condition, 
+                        missing = "no",
+                        type = everything() ~ "continuous",
+                        statistic = all_continuous() ~ "{mean} ({sd})",
+                        label = list(
+                                dom_noise ~ "!DOM#@Noi~",
+                                dom_human ~ "!DOM#@Hum~",
+                                dom_natural ~ "!DOM#@Nat~",
+                                overall ~ "!OSQ#",
+                                appropriate ~ "!APPR#",
+                                loudness ~ "!PLN#",
+                                ISOPL ~ "!ISOPL#",
+                                ISOEV ~ "!ISOEV#",
+                                PRSSFas ~ "!PRSS#@Fas~",
+                                PRSSBA ~ "!PRSS#@BA~",
+                                PRSSCom ~ "!PRSS#@Com~",
+                                PRSSEC ~ "!PRSS#@EC~",
+                                PRSSES ~ "!PRSS#@ES~",
+                                PosAff ~ "!PA#",
+                                NegAff ~ "!NA#"
+                                )
+                        ) %>%
+                add_difference(
+                        estimate_fun = everything() ~ 
+                                function(x) paste0(style_sigfig((-x/2) * 100), "%")
+                ),
+            .header = "**{strata}**"
+            ) |>
+        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
+        # remove difference footnote
+        modify_footnote(update = everything() ~ NA) |>
+        modify_header(all_stat_cols() ~ "**{level}**") 
+
+#summarise by site for each cond
+summary_bysite_gt <- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |>
+        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
+        dplyr::mutate(site=factor(site, levels=c("GND","ROOF"))) |>
+        tbl_strata(
+            strata = condition,
+            .tbl_fun =
+              ~ .x %>%
+                tbl_summary(
+                        by = site, 
+                        missing = "no",
+                        type = everything() ~ "continuous",
+                        statistic = all_continuous() ~ "{mean} ({sd})",
+                        label = list(
+                                dom_noise ~ "!DOM#@Noi~",
+                                dom_human ~ "!DOM#@Hum~",
+                                dom_natural ~ "!DOM#@Nat~",
+                                overall ~ "!OSQ#",
+                                appropriate ~ "!APPR#",
+                                loudness ~ "!PLN#",
+                                ISOPL ~ "!ISOPL#",
+                                ISOEV ~ "!ISOEV#",
+                                PRSSFas ~ "!PRSS#@Fas~",
+                                PRSSBA ~ "!PRSS#@BA~",
+                                PRSSCom ~ "!PRSS#@Com~",
+                                PRSSEC ~ "!PRSS#@EC~",
+                                PRSSES ~ "!PRSS#@ES~",
+                                PosAff ~ "!PA#",
+                                NegAff ~ "!NA#"
+                                )
+                        ) %>%
+                add_difference(
+                        estimate_fun = everything() ~ 
+                                function(x) paste0(style_sigfig((-x/2) * 100), "%")
+                        ),
+            .header = "**{strata}**"
+            ) |>
+        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
+        # remove difference footnote
+        modify_footnote(update = everything() ~ NA) |>
+        modify_header(all_stat_cols() ~ "**{level}**") 
+
+        
+tbl_merge_cond_site <-
+        tbl_merge(
+                tbls = list(summary_bycond_gt, summary_bysite_gt),
+                tab_spanner = c(
+                        "**Contrasts by condition at ...**",
+                        "**Contrasts by site under ...**"
+                        )
+                ) |>
+        as_gt() |>
+        text_transform(
+                locations = cells_body(),
+                fn = function(x) {
+                        str_replace_all(
+                                x,pattern = "@",
+                                replacement = "<sub>"
+                                ) |>
+                                str_replace_all("~","</sub>") |>
+                                str_replace_all("!","<i>") |>
+                                str_replace_all("#","</i>")
+                        }
+                ) |>
+        #highlight significant results at GND site
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_1_1),
+                        rows = variable %in% 
+                                signif_posthoc_bycond[
+                                        str_detect(signif_posthoc_bycond$term,
+                                                   "GND"),
+                                        ]$variable
+                        )
+        ) |>
+        #highlight significant results at ROOF site
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_2_1),
+                        rows = variable %in% 
+                                signif_posthoc_bycond[
+                                        str_detect(signif_posthoc_bycond$term,
+                                                   "ROOF"),
+                                        ]$variable
+                        )
+        ) |>
+        #highlight significant results under AMB condition
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_1_2),
+                        rows = variable %in% 
+                                signif_posthoc_bysite[
+                                        str_detect(signif_posthoc_bysite$term,
+                                                   "AMB"),
+                                        ]$variable
+                        )
+        ) |>
+        #highlight significant results under AMSS condition
+        tab_style(
+                style = list(
+                        cell_fill(color = "#FDE992"),
+                        cell_text(weight = "bold")
+                        ),
+                locations = cells_body(
+                        columns = c(estimate_2_2),
+                        rows = variable %in% 
+                                signif_posthoc_bysite[
+                                        str_detect(signif_posthoc_bysite$term,
+                                                   "AMSS"),
+                                        ]$variable
+                        )
+        )
+        
+tbl_merge_cond_site        
 
 ```
 
-Figure 2: Simple contrast of means across all perceptual attributes organized by *condition* and *site* Contrasts by *condition* are between groups at each *site*, whereas contrasts by *site* are within group for each *condition*. The scales for all attributes are normalised to the range \[-1,1\]. Significant differences as determined by posthoc contrast tests are accentuated
+#### Figure 2: Simple contrast of means across all perceptual attributes organized by *condition* and *site* Contrasts by *condition* are between groups at each *site*, whereas contrasts by *site* are within group for each *condition*. The scales for all attributes are normalised to the range \[-1,1\]. Significant differences as determined by posthoc contrast tests are accentuated
 
 ```{r slopplot, message=FALSE}
 
@@ -390,7 +469,7 @@ ggsave(
 
 #### Effect of order and group size
 
-**Extended Data Table 8** Summary of exact two-sample Kolmogorov-Smirnov tests to examine effect of order (GND--ROOF or ROOF--GND) and group size (1 or $>1$) on each soundscape evaluation attribute (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across each condition (AMSS and AMB). All the $p$-values were adjusted for multiple comparisons within conditions with the Benjamini-Hochberg (BH) method.
+##### **Extended Data Table 8** Summary of exact two-sample Kolmogorov-Smirnov tests to examine effect of order (GND--ROOF or ROOF--GND) and group size (1 or $>1$) on each soundscape evaluation attribute (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across each condition (AMSS and AMB). All the $p$-values were adjusted for multiple comparisons within conditions with the Benjamini-Hochberg (BH) method.
 
 ```{r ks_ordergrp, message=FALSE}
 
@@ -473,7 +552,7 @@ ks.order.grpsize
 
 ### Participants
 
-**Extended Data Table 10** Summary of participant demographics and non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across each condition (AMSS and AMB).
+#### **Extended Data Table 10** Summary of participant demographics and non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across each condition (AMSS and AMB).
 
 ```{r ed_table10}
 
