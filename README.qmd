@@ -14,6 +14,32 @@ data repository DR-NTU (Data) at .
 
 The subheadings in this repository follows the headings in the paper (after the [Data Loading] section) for consistency.
 
+The following figures are produced by this replication code:
+
+-   Figure 2 in [Site evaluation questionnaire]
+
+-   Figure 3 in
+
+The following tables are produced by this replication code:
+
+-   Table 1
+
+-   Table 2
+
+-   Extended Data Table 2 in [Site evaluation questionnaire]
+
+-   Extended Data Table 3
+
+-   Extended Data Table 4
+
+-   Extended Data Table 5
+
+-   Extended Data Table 8 in [Effect of order and group size]
+
+-   Extended Data Table 9
+
+-   Extended Data Table 10 in [Participants]
+
 ## Initialisation
 
 ```{r init, echo=FALSE, message=FALSE}
@@ -25,21 +51,31 @@ require(tidyverse)
 require(gt)
 require(gtsummary)
 require(gtools)
+require(paletteer)
+require(ggpubr)
+
+#stats
+require(effectsize)
+require(emmeans)
 
 #load script
 source("scripts/supportScripts.R")
 
 metadata<-data.frame(
-        category=c("categorical","categorical","categorical",
-                   "categorical","categorical","categorical",
-                   "interval","interval",
-                   "interval","interval","interval","interval","interval",
-                   "interval","interval"),
-        variable=c("dom_noise","dom_natural","dom_human",
-                   "overall","appropriate","loudness",
-                   "ISOPL","ISOEV",
-                   "PRSSFas","PRSSBA","PRSSCom","PRSSEC","PRSSES",
-                   "PosAff","NegAff")
+        category=c(
+                "categorical","categorical","categorical",
+                "interval","interval",
+                "categorical","categorical","categorical",
+                "interval","interval",
+                "interval","interval","interval","interval","interval"
+                ),
+        variable=c(
+                "dom_noise","dom_natural","dom_human",
+                "PosAff","NegAff",
+                "overall","appropriate","loudness",
+                "ISOPL","ISOEV",
+                "PRSSFas","PRSSBA","PRSSCom","PRSSEC","PRSSES"
+                )
 )
 
 ```
@@ -57,6 +93,297 @@ load(file = "data/fullData.RData")
 
 ## Results
 
+### Site evaluation questionnaire
+
+Table 1: Mean responses $\mu$ (standard deviation $\sigma$) of perceptual attributes in the site evaluation questionnaire investigated for the validation study, organized by *site* and *condition*. The scales for all attributes are normalised to the range $[-1,1]$. Percentage changes are computed between the AMB and AMSS for *site*, and between ROOF and GND for *condition* as scale changes on the $[-1,1]$ range with respect to the former. For instance, a change from $-0.25$ in the AMB condition to $0.75$ in the AMSS condition would be reported as a $50$% change. Significant changes as determined by posthoc tests are indicated in bold.
+
+```{r meanval, message=FALSE}
+
+#retrieve significant results
+signif_posthoc <- stat.results |>
+        dplyr::filter(
+                p.value<0.05 & 
+                        !grepl("MP",term) &
+                        grepl("Contrasts",test)
+                      ) 
+
+signif_posthoc_bycond <- significant_posthoc |>
+        filter(grepl("Condition",test)) |>
+        select(variable)
+
+signif_posthoc_bysite <- significant_posthoc |>
+        filter(grepl("Site",test)) |>
+        select(variable)
+
+summary_bycond_gt <- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |>
+        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
+        tbl_strata(
+            strata = site,
+            .tbl_fun =
+              ~ .x %>%
+                tbl_summary(
+                        by = condition, 
+                        missing = "no",
+                        type = everything() ~ "continuous",
+                        statistic = all_continuous() ~ "{mean} ({sd})"
+                        ) %>%
+                add_difference(),
+            .header = "**{strata}**"
+            ) |>
+        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
+        # remove difference footnote
+        modify_footnote(update = everything() ~ NA)
+
+summary_bysite_gt <- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |>
+        dplyr::select(!c(pID,order,partGrp,p:m,pss:who5)) |>
+        tbl_strata(
+            strata = condition,
+            .tbl_fun =
+              ~ .x %>%
+                tbl_summary(
+                        by = site, 
+                        missing = "no",
+                        type = everything() ~ "continuous",
+                        statistic = all_continuous() ~ "{mean} ({sd})"
+                        ) %>%
+                add_difference(),
+            .header = "**{strata}**"
+            )
+        modify_column_hide(columns = c(p.value_1,ci_1,p.value_2,ci_2)) |>
+        # remove difference footnote
+        modify_footnote(update = everything() ~ NA)
+
+#contrast by condition at each site
+summary_bycond_df <- 
+        plot_df |>
+        group_by(site,condition,Attribute) |>
+        summarise(
+                mean=mean(score,na.rm=TRUE),
+                sd=sd(score,na.rm=TRUE)
+                ) |>
+        ungroup() |>
+        dplyr::mutate(
+                significant=ifelse(
+                        site=="ROOF" & Attribute %in% signif_posthoc_bycond,
+                        TRUE,
+                        FALSE)
+                ) |>
+        pivot_wider(
+                names_from = "condition",
+                values_from = c(mean,sd)
+        ) |>
+        dplyr::mutate(
+                AMSS = paste0(
+                        formatC(mean_AMSS,format = "f",digits = 2),
+                        " (",
+                        formatC(sd_AMSS,format = "f",digits = 2),
+                        ")"
+                ),
+                AMB = paste0(
+                        formatC(mean_AMB,format = "f",digits = 2),
+                        " (",
+                        formatC(sd_AMB,format = "f",digits = 2),
+                        ")"
+                ), 
+                difference = formatC(
+                        (mean_AMSS-mean_AMB)/2*100,
+                        format = "f",digits = 2
+                        ),
+                .keep = "unused"
+        ) |>
+        dplyr::select(!c("significant")) |>
+        pivot_wider(
+                names_from = "site",
+                values_from = c("AMB","AMSS","difference"),
+                names_glue = "{site}_{.value}"
+        ) |>
+        dplyr::select(c("Attribute",
+                        "GND_AMB","GND_AMSS","GND_difference",
+                        "ROOF_AMB","ROOF_AMSS","ROOF_difference")) |>
+        gt(rowname_col = "Attribute") |>
+        tab_spanner_delim(delim = "_")
+summary_bycond_df
+```
+
+Extended Data Table 2:Summary of statistical tests for attributes in soundscape evaluation questionnaire (sound source dominance, overall quality, appropriateness, loudness, revisit frequency, *ISOPL*, *ISOEV*, and PRSS dimensions) across site (GND and ROOF), condition (AMSS and AMB), and their interaction (*site*:*condition*). Test abbreviations and symbols for significance levels and effect sizes are defined in the footnote.
+
+```{r mixedeffects, message=FALSE}
+
+#compute statistical tests for all variables
+stat.results<-twoWLMERMANOVA(metadata,amss_insitu_participant_data)
+
+#plot statistical test reults in a table
+stat.results |>
+        dplyr::mutate(
+                p.value=paste0(
+                        gtools::stars.pval(p.value),
+                        formatC(p.value, format = "f", digits = 4)
+                        ),
+                eff.size=case_when(
+                        eff.size > 0.14 ~ paste0(
+                                "(L)",
+                                formatC(eff.size,format = "f",digits = 4)
+                                ),
+                        eff.size > 0.06 ~ paste0(
+                                "(M)",
+                                formatC(eff.size,format = "f",digits = 4)
+                                ),
+                        eff.size > 0.01 ~ paste0(
+                                "(S)",formatC(eff.size,format = "f",digits = 4)
+                                ),
+                        .default = formatC(eff.size,format = "f",digits = 4))) |>
+        dplyr::group_by(variable) |>
+        gt::gt() |>
+        cols_label(
+                term ~ html("<b>Term</b>"),
+                test ~ html("<b>Test</b>"),
+                p.value ~ html("<i>p</i>-<b>value</b>"),
+                eff.size ~ html("<b>Effect Size</b>")
+        )
+
+```
+
+Figure 2: Simple contrast of means across all perceptual attributes organized by *condition* and *site* Contrasts by *condition* are between groups at each *site*, whereas contrasts by *site* are within group for each *condition*. The scales for all attributes are normalised to the range \[-1,1\]. Significant differences as determined by posthoc contrast tests are accentuated
+
+```{r slopplot, message=FALSE}
+
+#prepare dataframe for plotting
+plot_df<- amss_insitu_participant_data |>
+        dplyr::filter(!site=="MP") |> #remove the meeting point
+        pivot_longer(
+                cols = metadata$variable,
+                values_to = "score",
+                names_to = "Attribute"
+                ) |>
+        dplyr::select(!c(p:who5)) |>
+        dplyr::mutate(
+                Attribute=factor(Attribute,levels=metadata$variable)
+        )
+
+#Contrasts by condition under GND and ROOF site conditions
+plot_site_df<-plot_df |>
+        group_by(site,condition,Attribute) |>
+        summarise(
+                mean=mean(score,na.rm=TRUE),
+                sd=sd(score,na.rm=TRUE)
+                ) |>
+        ungroup() |>
+        dplyr::mutate(
+                significant=ifelse(
+                        site=="ROOF" & 
+                                Attribute %in% c("dom_natural","PosAff",
+                                                 "ISOPL","overall",
+                                                 "PRSSFas","PRSSBA",
+                                                 "PRSSCom"),
+                                   TRUE,FALSE)
+                )
+
+#Contrasts by site under AMSS and AMB conditions
+plot_cond_df<-plot_df |>
+        group_by(condition,site,Attribute) |>
+        summarise(mean=mean(score,na.rm=TRUE),
+                  sd=sd(score,na.rm=TRUE)) |>
+        ungroup() |>
+        dplyr::mutate(
+                significant=ifelse((
+                        condition=="AMB" & 
+                                Attribute %in% c("dom_natural","ISOPL",
+                                              "overall","loudness",
+                                              "PRSSFas","PRSSBA","PRSSCom")) |
+                                (condition=="AMSS" & 
+                                         Attribute %in% c("loudness")),
+                                   TRUE,FALSE)
+                )
+
+#prepare legend labels
+plot_legends <- c(
+                bquote(~DOM[Noi]),
+                bquote(~DOM[Nat]),
+                bquote(~DOM[Hum]),
+                "PA","NA","OQ","APPR",
+                "PLN","ISOPL","ISOEV",
+                bquote(~PRSS[Fas]),
+                bquote(~PRSS[BA]),
+                bquote(~PRSS[Com]),
+                bquote(~PRSS[EC]),
+                bquote(~PRSS[ES])
+                )
+
+site_plot<-ggplot(data = plot_site_df,
+       aes(x=condition,y=mean,group=Attribute,
+           alpha=significant,color=Attribute)) +
+        geom_line() + 
+        geom_point() +
+        scale_alpha_discrete(
+                range=c(0.2, 1),
+                guide = 'none' #turn off legend
+                ) +
+        scale_color_paletteer_d(
+                palette = "awtools::bpalette",
+                labels=plot_legends
+                ) +
+        facet_wrap(vars(site)) +
+        theme_minimal() +
+        theme(
+                panel.grid.major.x = element_blank(),
+                panel.grid.minor.x = element_blank()
+        ) +
+        geom_hline(
+                yintercept = 0,
+                color="darkgrey",
+                size=1
+                ) +
+        ylim(c(-1,1)) +
+        ylab("Normalised mean") +
+        ggpubr::labs_pubr()
+        
+
+cond_plot<-ggplot(data = plot_cond_df,
+       aes(x=site,y=mean,group=Attribute,
+           alpha=significant,color=Attribute)) +
+        geom_line() + 
+        geom_point() +
+        scale_alpha_discrete(
+                range=c(0.2, 1),
+                guide = 'none' #turn off legend
+                ) +
+        scale_color_paletteer_d(
+                palette = "awtools::bpalette",
+                labels=plot_legends) +
+        facet_wrap(vars(condition)) +
+        theme_minimal() +
+        theme(
+                panel.grid.major.x = element_blank(),
+                panel.grid.minor.x = element_blank()
+        ) +
+        geom_hline(
+                yintercept = 0,
+                color="darkgrey",
+                size=1
+                ) +
+        ylim(c(-1,1)) +
+        ylab("Normalised mean") +
+        ggpubr::labs_pubr()
+
+
+comb_plot<-ggarrange(
+        site_plot, cond_plot, #labels = c("Site", "Condition"),
+        common.legend = TRUE, legend = "right"
+)
+comb_plot
+
+ggsave(
+        path = "output/",
+        filename = "comb_contrast_mean_plot.pdf",
+        plot = comb_plot,
+        scale = 1.5, units = "px", dpi = "retina",limitsize = TRUE,
+        height = 1200, width = 2000
+)
+
+```
+
 ## Methods
 
 ### Design of in-situ evaluation experiment
@@ -71,7 +398,7 @@ ks.df <- amss_insitu_participant_data |>
         dplyr::select(c(condition,partGrp,order,metadata$variable)) |>
         pivot_longer(names_to = "variable",
                      values_to = "score",
-                     cols = c(dom_noise:NegAff))
+                     cols = metadata$variable)
 
 ks.order.grpsize <- rbind(
         #KS Test by order
