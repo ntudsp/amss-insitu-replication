@@ -7,10 +7,10 @@ editor: visual
 
 # Replication Code for "AI-augmented urban soundscapes: In-situ assessment of soundscape quality and restorativeness"
 
-The GitHub repository contains the code to replicate the analysis, figures and tables for the paper titled: "".
+The GitHub repository contains the code to replicate the analysis, figures and tables for the paper titled: "AI-augmented urban soundscapes: In-situ assessment of soundscape quality and restorativeness".
 
 The data that support the findings of this study are openly available in NTU research\
-data repository DR-NTU (Data) at .
+data repository DR-NTU (Data) at <https://doi.org/10.21979/N9/NEH5TR>.
 
 The subheadings in this repository follows the headings in the paper (after the [Data Loading] section) for consistency.
 
@@ -18,25 +18,25 @@ The following figures are produced by this replication code:
 
 -   Figure 2 in [Site evaluation questionnaire]
 
--   Figure 3 in
+-   Figure 3 in [Objective binaural measurements]
 
 The following tables are produced by this replication code:
 
--   Table 1
+-   Table 1 in [Site evaluation questionnaire]
 
--   Table 2
+-   Table 2 in [Objective binaural measurements]
 
 -   Extended Data Table 2 in [Site evaluation questionnaire]
 
--   Extended Data Table 3
+-   Extended Data Table 3 in [Site evaluation questionnaire]
 
--   Extended Data Table 4
+-   Extended Data Table 4 in [Objective binaural measurements]
 
--   Extended Data Table 5
+-   Extended Data Table 5 in [Perceptual implications of ISOPL as a soundscape intervention design goal]
 
 -   Extended Data Table 8 in [Effect of order and group size]
 
--   Extended Data Table 9
+-   Extended Data Table 9 in [Non-acoustic environmental conditions for in-situ validation study]
 
 -   Extended Data Table 10 in [Participants]
 
@@ -53,10 +53,12 @@ require(gtsummary)
 require(gtools)
 require(paletteer)
 require(ggpubr)
+require(pals)
 
 #stats
 require(effectsize)
 require(emmeans)
+require(psych)
 
 #load script
 source("scripts/supportScripts.R")
@@ -95,7 +97,7 @@ load(file = "data/fullData.RData")
 
 ### Site evaluation questionnaire
 
-#### **Extended Data Table 2:** Summary of statistical tests for attributes in soundscape evaluation questionnaire (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across site (GND and ROOF), condition (AMSS and AMB), and their interaction (*site*:*condition*). Test abbreviations and symbols for significance levels and effect sizes are defined in the footnote.
+#### `Extended Data Table 2:` Summary of statistical tests for attributes in soundscape evaluation questionnaire (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across site (GND and ROOF), condition (AMSS and AMB), and their interaction (*site*:*condition*). Test abbreviations and symbols for significance levels and effect sizes are defined in the footnote.
 
 ```{r mixedeffects, message=FALSE}
 
@@ -132,7 +134,7 @@ stat.results |>
         )
 ```
 
-#### **Table 1:** Mean responses $\mu$ (standard deviation $\sigma$) of perceptual attributes in the site evaluation questionnaire investigated for the validation study, organized by *site* and *condition*. The scales for all attributes are normalised to the range $[-1,1]$. Percentage changes are computed between the AMB and AMSS for *site*, and between ROOF and GND for *condition* as scale changes on the $[-1,1]$ range with respect to the former. For instance, a change from $-0.25$ in the AMB condition to $0.75$ in the AMSS condition would be reported as a $50$% change. Significant changes as determined by posthoc tests are indicated in bold.
+#### `Table 1:` Mean responses $\mu$ (standard deviation $\sigma$) of perceptual attributes in the site evaluation questionnaire investigated for the validation study, organized by *site* and *condition*. The scales for all attributes are normalised to the range $[-1,1]$. Percentage changes are computed between the AMB and AMSS for *site*, and between ROOF and GND for *condition* as scale changes on the $[-1,1]$ range with respect to the former. For instance, a change from $-0.25$ in the AMB condition to $0.75$ in the AMSS condition would be reported as a $50$% change. Significant changes as determined by posthoc tests are indicated in bold.
 
 ```{r meanval, message=FALSE}
 
@@ -237,7 +239,7 @@ summary_bysite_gt <- amss_insitu_participant_data |>
         modify_footnote(update = everything() ~ NA) |>
         modify_header(all_stat_cols() ~ "**{level}**") 
 
-        
+#merge tables columnwise        
 tbl_merge_cond_site <-
         tbl_merge(
                 tbls = list(summary_bycond_gt, summary_bysite_gt),
@@ -320,11 +322,11 @@ tbl_merge_cond_site <-
                         )
         )
         
-tbl_merge_cond_site        
+tbl_merge_cond_site
 
 ```
 
-#### Figure 2: Simple contrast of means across all perceptual attributes organized by *condition* and *site* Contrasts by *condition* are between groups at each *site*, whereas contrasts by *site* are within group for each *condition*. The scales for all attributes are normalised to the range \[-1,1\]. Significant differences as determined by posthoc contrast tests are accentuated
+#### `Figure 2:` Simple contrast of means across all perceptual attributes organized by *condition* and *site* Contrasts by *condition* are between groups at each *site*, whereas contrasts by *site* are within group for each *condition*. The scales for all attributes are normalised to the range \[-1,1\]. Significant differences as determined by posthoc contrast tests are accentuated
 
 ```{r slopplot, message=FALSE}
 
@@ -453,13 +455,304 @@ comb_plot<-ggarrange(
 )
 comb_plot
 
-ggsave(
-        path = "output/",
-        filename = "comb_contrast_mean_plot.pdf",
-        plot = comb_plot,
-        scale = 1.5, units = "px", dpi = "retina",limitsize = TRUE,
-        height = 1200, width = 2000
+```
+
+#### `Extended Data Table 3:` Kendall correlation matrix between all attributes in the site evaluation questionnaire where the significance of each entry in the upper triangle is denoted with a Holm-adjusted $p$-value and each entry in the lower triangle is denoted with an unadjusted $p$-value. Asterisks indicate \*$p<0.05$; \*\*$p<0.01$; \*\*\*$p<0.001$; \*\*\*\*$p<0.0001$. The unit diagonal has been removed for clarity.
+
+```{r subj_corr, message=FALSE, echo=FALSE}
+
+#compute Kendall correlation using the psych package
+corr.all<-psych::corr.test(
+        amss_insitu_participant_data |> 
+            dplyr::select(dom_noise,dom_human,dom_natural,
+                          PosAff,NegAff,overall,appropriate,loudness,
+                          ISOPL,ISOEV,PRSSFas,PRSSBA,PRSSCom,PRSSEC,PRSSES
+                          ),
+    method = "kendall")
+
+corr.r <- as.data.frame(corr.all$r) |>
+        dplyr::mutate_all(.funs = list(~formatC(.,digits = 2,
+                                                format = "f"))) 
+
+corr.p <- as.data.frame(corr.all$p) |>
+        dplyr::mutate_all(.funs=list(~gtools::stars.pval(.)))
+
+corr.mat <- matrix(
+        paste0(as.matrix(corr.p),as.matrix(corr.r)),
+        nrow=nrow(corr.p), 
+        dimnames=dimnames(corr.p)
+        )
+
+#remove diagonal values
+diag(corr.mat)=NA
+
+corr.mat <- as.data.frame(corr.mat) |>
+        `rownames<-`(colnames(corr.p)) 
+
+corr.mat |>
+        gt(rownames_to_stub = TRUE) |>
+         sub_missing(
+            columns = everything(),
+            missing_text = ""
+            )
+
+```
+
+### Objective binaural measurements
+
+#### `Table 2:` Summary of mean *L*<sub>Aeq</sub>, *L*<sub>Ceq</sub>, *N*<sub>95</sub>, *ISOPL*, *OSQ*, *PRSS*<sub>Fas</sub>, *PRSS*<sub>BA</sub>, and *PRSS*<sub>Com</sub> values across 20 AMSS and AMB sessions in each of the GND and RTGP sites. Supplemented mean values for the AMSS sessions excluding aircraft flyby (3 in GND; 1 in ROOF) are included.
+
+```{r obj_table}
+
+#summary including aircraft flyby
+isopl_obj_tbl <- comb_obj_insitu_session_data |>
+        ungroup() |>
+        pivot_wider(
+                names_from = "attribute",
+                values_from = "score"
+        ) |>
+        tbl_strata2(
+                strata = condition,
+                .tbl_fun =
+                        ~ .x %>%
+                        tbl_summary(include = c(`L[Aeq]`,`L[Ceq]`,
+                                                `N[95]`,`ISOPL`,
+                                                `OSQ`,`PRSS[Fas]`,
+                                                `PRSS[BA]`,`PRSS[Com]`),
+                            by = site,
+                            type = list(everything() ~ 'continuous'),
+                            statistic = list(everything() ~ "{mean} ({sd})"),
+                            missing = "no",
+                            digits = list(all_continuous() ~ c(2, 2)))
+                )
+
+#remove aircraft noise
+isopl_obj_noaircraft_tbl<-comb_obj_insitu_session_data |> 
+        ungroup() |>
+        pivot_wider(
+                names_from = "attribute",
+                values_from = "score"
+        ) |>
+        dplyr::filter(
+                !((date=="20230914" & sessionTime=="9" & site=="GND") |
+                        (date=="20230915" & sessionTime=="14" 
+                         & site %in% c("GND","ROOF")) |
+                                 (date=="20230915" & sessionTime=="16" 
+                                  & site=="GND"))
+        ) |>
+        #dplyr::group_by(condition,site) |>
+        tbl_strata2(
+                strata = condition,
+                .tbl_fun =
+                        ~ .x %>%
+                        tbl_summary(include = c(`L[Aeq]`,`L[Ceq]`,
+                                                `N[95]`,`ISOPL`,
+                                                `OSQ`,`PRSS[Fas]`,
+                                                `PRSS[BA]`,`PRSS[Com]`),
+                            by = site,
+                            type = list(everything() ~ 'continuous'),
+                            statistic = list(everything() ~ "{mean} ({sd})"),
+                            missing = "no",
+                            digits = list(all_continuous() ~ c(2, 2))),
+                .header = "**{strata}** (without aircraft flyby)"
+                ) |>
+        modify_header(label="") |>
+        modify_column_hide(columns = c(stat_1_1,stat_2_1))
+
+#merge tables columnwise        
+tbl_merge_cond_site <-
+        tbl_merge(
+                tbls = list(isopl_obj_tbl, isopl_obj_noaircraft_tbl)
+        ) |>
+        modify_spanning_header(
+                c(stat_1_1_1,stat_2_1_1) ~ "**AMB**"
+        ) |>
+        modify_spanning_header(
+                c(stat_1_2_1,stat_2_2_1) ~ "**AMSS**"
+        ) |>
+        modify_spanning_header(
+                c(stat_1_2_2,stat_2_2_2) ~ "**AMSS (without aircraft flyby)**"
+        ) |>
+        as_gt()
+tbl_merge_cond_site
+```
+
+### `Figure 3:` Mean perceptual *ISOPL*, *OSQ*, *PRSS*<sub>Fas</sub>, *PRSS*<sub>BA</sub>, and *PRSS*<sub>Com</sub> scores across all participants per session (y-axis) as a function of normalized objective *L*<sub>Aeq</sub>, *L*<sub>Ceq</sub>, *N*<sub>95</sub>, scores of each session (x-axis). Fifty percent of the sessions lie within the median contours computed for AMB--GND, AMB--ROOF, AMSS--GND, AMSS--ROOF contrast subgroups. The left to right columns represent *L*<sub>Aeq</sub>, *L*<sub>Ceq</sub>, and *N*<sub>95</sub>, and each row represents each of the perceptual metrics, respectively.
+
+```{r densityplot, message=FALSE, echo=FALSE}
+
+#plot isopl vs decibel score
+
+#density colors
+densityClr<-pals::stevens.pinkgreen()[c(9,5,7,3)]
+
+#ISOPL vs LAeq
+isopl_LA_plot <- ggplot(comb_obj_insitu_session_data) +
+  facet_wrap(~attribute,
+    labeller = label_parsed,
+    scales = "free", 
+    ncol = 1
+  ) +
+  # add mean points of each session
+  geom_point(aes(y = `L[Aeq]`, x = score, shape = site, color = pair)) +
+  # add kde contours
+  stat_density_2d(
+    bins = 3, contour_var = "ndensity", breaks = c(0.5),
+    geom = "density_2d",
+    aes(y = `L[Aeq]`, x = score, color = pair)
+  ) +
+  scale_fill_manual(values = densityClr) +
+  scale_color_manual(values = densityClr, name = "subgroup") +
+  ylim(c(50, 70)) +
+  xlim(c(-1, 1)) +
+  geom_vline(
+    xintercept = 0,
+    color = "darkgrey",
+    size = 1
+  ) +
+  #xlab("ISOPL") +
+  ylab(bquote(paste(L[Aeq], ", dB(A)"))) +
+  ggpubr::labs_pubr() +
+  theme(
+    legend.position = "bottom",
+    strip.background = element_blank(),
+    strip.text.x = element_blank(),
+    axis.title.x = element_blank()
+  )
+
+isopl_LC_plot <- ggplot(comb_obj_insitu_session_data) +
+  # add mean points of each session
+  geom_point(aes(y = `L[Ceq]`, x = score, shape = site, color = pair)) +
+  facet_wrap(~attribute,
+    labeller = label_parsed,
+    scales = "free",
+    ncol = 1
+  ) +
+  # add kde contours
+  stat_density_2d(
+    bins = 3, contour_var = "ndensity", breaks = c(0.5),
+    geom = "density_2d",
+    aes(y = `L[Ceq]`, x = score, color = pair)
+  ) +
+  scale_fill_manual(values = densityClr) +
+  scale_color_manual(values = densityClr, name = "subgroup") +
+  ylim(c(60, 80)) +
+  xlim(c(-1, 1)) +
+  geom_vline(
+    xintercept = 0,
+    color = "darkgrey",
+    size = 1
+  ) +
+  ylab(bquote(paste(L[Ceq], ", dB(C)"))) +
+  ggpubr::labs_pubr() +
+  theme(
+    legend.position = "bottom",
+    strip.background = element_blank(),
+    strip.text.x = element_blank(),
+    axis.title.x = element_blank(),
+  )
+
+isopl_N95_plot <- ggplot(comb_obj_insitu_session_data) +
+  facet_wrap(~attribute,
+    labeller = label_parsed,
+    scales = "free",
+    ncol = 1,
+    strip.position = "right"
+  ) +
+  # add mean points of each session
+  geom_point(aes(y = `N[95]`, x = score, shape = site, color = pair)) +
+  # add kde contours
+  stat_density_2d(
+    bins = 3, contour_var = "ndensity", breaks = c(0.5),
+    geom = "density_2d",
+    aes(y = `N[95]`, x = score, color = pair)
+  ) +
+  scale_fill_manual(values = densityClr) +
+  scale_color_manual(values = densityClr, name = "subgroup") +
+  ylim(c(5, 20)) +
+  xlim(c(-1, 1)) +
+  geom_vline(
+    xintercept = 0,
+    color = "darkgrey",
+    size = 1
+  ) +
+  ylab(bquote(paste(N[95], ", soneGF"))) +
+  ggpubr::labs_pubr() +
+  theme(
+    legend.position = "bottom",
+    axis.title.x = element_blank()
+  )
+
+comb_isopl_obj_plot <- ggarrange(
+  isopl_LA_plot, 
+  isopl_LC_plot,
+  isopl_N95_plot,
+  common.legend = TRUE, legend = "bottom",
+  nrow = 1
 )
+comb_isopl_obj_plot
+```
+
+### `Extended Data Table 4:` Kendall correlation matrix between all objective acoustic measures and perceptual attributes in the site evaluation questionnaire where the significance of each entry in the upper triangle is denoted with a Holm-adjusted $p$-value and each entry in the lower triangle is denoted with an unadjusted $p$-value. Asterisks indicate \*$p<0.05$; \*\*$p<0.01$; \*\*\*$p<0.001$; \*\*\*\*$p<0.0001$. The unit diagonal has been removed for clarity.
+
+```{r obj_subj_corr, echo=FALSE, message=FALSE}
+
+corr_obj<-psych::corr.test(
+        comb_obj_insitu_session_data |>
+                ungroup() |>
+                pivot_wider(
+                        names_from = attribute,
+                        values_from = score,
+                ) |>
+                dplyr::select(ISOPL,
+                              OSQ,
+                              `PRSS[Fas]`,`PRSS[BA]`,`PRSS[Com]`,
+                              `L[Aeq]`,`L[Ceq]`,`N[95]`) |>
+                dplyr::mutate_all(.funs = as.numeric),
+    method = "kendall")
+
+corr_obj_r <- as.data.frame(corr_obj$r) |>
+        dplyr::mutate_all(
+                .funs = list(~formatC(.,digits = 2,format = "f"))
+                ) 
+
+corr_obj_p <- as.data.frame(corr_obj$p) |>
+        dplyr::mutate_all(
+                .funs=list(~gtools::stars.pval(.))
+                )
+
+corr_obj_mat <- matrix(
+        paste0(as.matrix(corr_obj_p),as.matrix(corr_obj_r)),
+        nrow=nrow(corr_obj_p), 
+        dimnames=dimnames(corr_obj_p)
+        ) 
+
+#remove diagonal values
+diag(corr_obj_mat)=NA
+
+#convert to data frame
+corr_obj_mat <- as.data.frame(corr_obj_mat) |>
+        `rownames<-`(colnames(corr_obj_p)) 
+
+
+corr_obj_mat |>
+        gt(rownames_to_stub = TRUE) |>
+        sub_missing(
+            columns = everything(),
+            missing_text = ""
+            )
+
+```
+
+## Discussion
+
+### Perceptual implications of ISOPL as a soundscape intervention design goal
+
+#### `Extended Data Table 5:` Frequency distribution of the maskers chosen by the AMSS during the 10-min listening period across all AMSS group participants. Description and availability of the corresponding maskers as detailed by Ooi et al. (2023) in the ARAUS dataset.
+
+```{r masker_frequency, message=FALSE, echo=FALSE}
+
+
 
 ```
 
@@ -469,7 +762,7 @@ ggsave(
 
 #### Effect of order and group size
 
-##### **Extended Data Table 8** Summary of exact two-sample Kolmogorov-Smirnov tests to examine effect of order (GND--ROOF or ROOF--GND) and group size (1 or $>1$) on each soundscape evaluation attribute (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across each condition (AMSS and AMB). All the $p$-values were adjusted for multiple comparisons within conditions with the Benjamini-Hochberg (BH) method.
+##### `Extended Data Table 8` Summary of exact two-sample Kolmogorov-Smirnov tests to examine effect of order (GND--ROOF or ROOF--GND) and group size (1 or $>1$) on each soundscape evaluation attribute (sound source dominance, overall quality, appropriateness, loudness, *ISOPL*, *ISOEV*, and PRSS dimensions) across each condition (AMSS and AMB). All the $p$-values were adjusted for multiple comparisons within conditions with the Benjamini-Hochberg (BH) method.
 
 ```{r ks_ordergrp, message=FALSE}
 
@@ -550,9 +843,21 @@ ks.order.grpsize
 
 ```
 
+### Stimuli and automatic masker selection
+
+#### Non-acoustic environmental conditions for in-situ validation study
+
+##### `Extended Data Table 9:` Summary statistics of environmental parameters captured at RTGP during the 10-min listening period across all participants.
+
+```{r env, message=FALSE, echo=FALSE}
+
+
+
+```
+
 ### Participants
 
-#### **Extended Data Table 10** Summary of participant demographics and non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across each condition (AMSS and AMB).
+#### `Extended Data Table` 10 Summary of participant demographics and non-acoustic factors (PSS-10, WNSS, WHO-5, baseline annoyance) across each condition (AMSS and AMB).
 
 ```{r ed_table10}
 
