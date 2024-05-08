@@ -43,6 +43,7 @@ The following tables are produced by this replication code:
 ## Initialisation
 
 ```{r init, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 #data wrangling
 require(tidyverse)
@@ -752,7 +753,13 @@ corr_obj_mat |>
 
 ```{r masker_frequency, message=FALSE, echo=FALSE}
 
-
+pred_summary_tbl<-predict_session_data |> 
+        tbl_summary(
+                include = c(predictions),
+                #only show percentage
+                statistic = list(all_categorical() ~ "{p}%")
+                )
+pred_summary_tbl
 
 ```
 
@@ -851,7 +858,21 @@ ks.order.grpsize
 
 ```{r env, message=FALSE, echo=FALSE}
 
+#list of metrics to compute mean
+metric_list <- c("temperature","humidity","lux","wind_speed","24h_psi","pm25")
 
+enviro_summary_tbl <- enviro_session_data |>
+        tbl_summary(include = metric_list,
+                    by = condition,
+                    digits = all_continuous() ~ 2,
+                    type = list(everything() ~ 'continuous'),
+                    statistic = list(all_continuous() ~ "{mean} ({sd})"),
+                    missing = "no") %>%
+        #add_n() %>% # add column with total number of non-missing observations
+        modify_header(label = "**Metric**") %>%
+        add_p(everything() ~ "wilcox.test",
+              pvalue_fun = function(x) style_pvalue(x, digits = 3))
+enviro_summary_tbl
 
 ```
 
