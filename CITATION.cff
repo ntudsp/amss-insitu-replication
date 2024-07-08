@@ -4,8 +4,8 @@ authors:
 - family-names: "Lam"
   given-names: "Bhan"
   orcid: "https://orcid.org/0000-0001-5193-6560" 
-title: "Replication Code for: AI-augmented urban soundscapes: In-situ assessment of soundscape quality and restorativeness"
-version: 1.0.0
+title: "Automating Urban Soundscape Enhancements with AI: In-situ Assessment of Quality and Restorativeness in Traffic-Exposed Residential Areas"
+version: 2.0.0
 doi: 10.5281/zenodo.11141690
-date-released: 2024-05-08
+date-released: 2024-06-08
 url: "https://github.com/ntudsp/amss-insitu-replication"
