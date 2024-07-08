@@ -16,10 +16,6 @@ The subheadings in this repository follows the headings in the paper (after the 
 
 The following figures are produced by this replication code:
 
--   Table 2 in Stimuli and automatic masker selection
-
--   Table 3 in Stimuli and automatic masker selection
-
 -   Figure 2 in [Site evaluation questionnaire]
 
 -   Figure 3 in [Objective binaural measurements]
