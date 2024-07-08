@@ -16,6 +16,10 @@ The subheadings in this repository follows the headings in the paper (after the 
 
 The following figures are produced by this replication code:
 
+-   Table 2 in Stimuli and automatic masker selection
+
+-   Table 3 in Stimuli and automatic masker selection
+
 -   Figure 2 in [Site evaluation questionnaire]
 
 -   Figure 3 in [Objective binaural measurements]
@@ -43,23 +47,17 @@ The following tables are produced by this replication code:
 ## Initialisation
 
 ```{r init, echo=FALSE, message=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, results = FALSE)
 
-#data wrangling
-require(tidyverse)
-
-#visualisation
-require(gt)
-require(gtsummary)
-require(gtools)
-require(paletteer)
-require(ggpubr)
-require(pals)
-
-#stats
-require(effectsize)
-require(emmeans)
-require(psych)
+if(!requireNamespace("pacman", quietly=TRUE)) install.packages("pacman")
+pacman::p_load(
+        #data wrangling
+        dataverse, tidyverse, 
+        #visualisation
+        gt, gtsummary, gtools, paletteer, ggpubr, pals,
+        #stats
+        effectsize, emmeans, psych
+)
 
 #load script
 source("scripts/supportScripts.R")
@@ -85,13 +83,21 @@ metadata<-data.frame(
 
 ## Data Loading
 
-First, download the RData file containing all the data tables required to replicate all the figures, tables and analyses in this paper from the Dataverse repository.
+First, check if the RData file (`fullData.Rdata`) exists. If it does not exist, download the RData file containing all the data tables required to replicate all the figures, tables and analyses in this paper from the Dataverse repository (<https://doi.org/10.21979/N9/NEH5TR>).
 
-Load the RData file `fullData.Rdata`.
+```{r dataloading, echo=TRUE, message=FALSE}
 
-```{r dataloading, echo=FALSE, message=FALSE}
-
-load(file = "data/fullData.RData")
+#check if RData file exists then download from the DOI if it doesn't
+if (!file.exists("data/fullData.RData")){
+        as_binary<-dataverse::get_file(
+                file = "fullData.RData",
+                dataset = "doi:10.21979/N9/NEH5TR",
+                server = "https://researchdata.ntu.edu.sg"
+        )
+        
+        #write binary file
+        writeBin(as_binary, con = "data/fullData.RData")
+}
 ```
 
 ## Results
