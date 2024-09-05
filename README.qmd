@@ -94,6 +94,7 @@ if (!file.exists("data/fullData.RData")){
 }
 
 load("data/fullData.RData")
+load("data/splvstime.RData")
 ```
 
 ## 2. Method
@@ -948,4 +949,91 @@ comb_isopl_obj_plot <- ggarrange(
   nrow = 1
 )
 comb_isopl_obj_plot
+```
+
+## SPL vs Time
+
+```{r}
+
+#aggregate SPL data by second to create smoother graph
+spl_vs_time_data_agg <- spl_vs_time_data |> 
+        #remove aircraft flyby sessions
+        dplyr::filter(
+                !((date=="20230914" & sessionTime=="9" & site=="GND") |
+                        (date=="20230915" & sessionTime=="14" 
+                         & site %in% c("GND","ROOF")) |
+                                 (date=="20230915" & sessionTime=="16" 
+                                  & site=="GND"))
+                ) |>
+        #remove the GND site
+        dplyr::filter(site=="ROOF") |>
+        #remove night sessions
+        dplyr::filter(!sessionTime==20) |>
+        #choose louder channel except for 20230818 sessions
+        dplyr::mutate(
+                binLoud = ifelse(
+                        date == "20230818",
+                        binL,
+                        ifelse(
+                                binL>binR,
+                                binL,
+                                binR
+                        )
+                )
+        ) |>
+        group_by(date,condition,sessionTime) |>
+        dplyr::mutate(time=as_datetime(time)) |>
+        timetk::summarise_by_time(
+                .date_var = time,
+                .by = "0.125 second",
+                binL = seewave::meandB(binL),
+                binR = seewave::meandB(binR),
+                binLoud = seewave::meandB(binLoud)
+        ) |>
+        ungroup() |>
+        distinct(date, condition, sessionTime, time, .keep_all = TRUE)
+
+#plot SPL vs Time over 10 min listening period
+
+p_spltime <- ggplot(
+        data = spl_vs_time_data_agg,
+        aes(
+                x = time,
+                y = binLoud,
+                color = condition,
+                fill = condition
+        )
+        ) +
+        #geom_smooth(alpha=0.5, method = "gam") +
+        stat_summary(
+                fun = seewave::meandB,
+                geom = "line",
+                linewidth = 0.5
+        ) +
+        stat_summary(
+                fun = seewave::meandB,
+                geom = "ribbon",
+                alpha = .3,
+                linetype = 0,
+                fun.max = function(x) seewave::meandB(x) + sd(x) / sqrt(length(x)),
+                fun.min = function(x) seewave::meandB(x) - sd(x) / sqrt(length(x))
+        ) 
+        
+p_spltime_save <- p_spltime + 
+        scale_color_paletteer_d("Redmonder::qPBI", direction = -1) +
+        scale_fill_paletteer_d("Redmonder::qPBI", direction = -1) +
+        xlim(0,600) + 
+        ylim(60,70) +
+        labs(y=expression(italic(L)[AF], dB(A))) +
+        xlab("Time (s)")
+
+ggsave(path = "output/",
+       plot = p_spltime_save,
+       filename = "spltime.pdf",
+       device = "pdf",
+       units = "px",
+       width = 1200,
+       height = 600,
+       scale = 3.5,
+       dpi = 600) 
 ```
