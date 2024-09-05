@@ -50,7 +50,7 @@ pacman::p_load(
         #visualisation
         gt, gtsummary, gtools, paletteer, ggpubr, pals,
         #stats
-        effectsize, emmeans, psych
+        effectsize, emmeans, psych, lme4
 )
 
 #load script
